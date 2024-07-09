@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etat des Habitats - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/Code CSS.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="top">
+            <div class="logo">
+              <span></span>
+            </div>
+            <i class="bx bx-menu" id="btn"></i>
+        </div> <br>
+        <div class="user">
+            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me" class="user-img">
+            <div>
+                <p class="bold">Nanwokan O.</p>
+                <p>admin</p>
+            </div>
+        </div>
+        <ul>
+            <li>
+                <a href="../Pages HTML/employe_validate_reviews.html">
+                    <i class="bx bxs-dashboard"></i>
+                    <span class="nav-items">Accueil</span>
+                </a>
+                <span class="tooltip">Tableau de Bord</span>
+            </li>
+            <li>
+                <a href="../Pages HTML/veterinaire_habitats.html">
+                    <i class="bx bx-task"></i>
+                    <span class="nav-items">Habitats</span>
+                </a>
+                <span class="tooltip">Habitats</span>
+            </li>
+            <li>
+                <a href="../Pages HTML/veterinaire_animals.html">
+                    <i class="bx bxs-dog"></i>
+                    <span class="nav-items">Animaux</span>
+                </a>
+                <span class="tooltip">Animaux</span>
+            </li>
+            <li>
+                <a href="../Pages HTML/veterinaire_reports.html">
+                    <i class="bx bxs-dog"></i>
+                    <span class="nav-items">Rapports</span>
+                </a>
+                <span class="tooltip">Rapports</span>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class="bx bx-log-out"></i>
+                    <span class="nav-items">Déconnexion</span>
+                </a>
+                <span class="tooltip">Déconnexion</span>
+            </li>
+        </ul>
+        
+    </aside>
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <section>
+            <form id="userForm">
+                <div class="row-title-select">
+                    <h2>Info Habitat</h2>
+                    <select id="selectHabitat" name="selectHabitat" required>
+                        <option value="" disabled selected>Choisissez un habitat</option>
+                        <option value="savane_africaine">Savane Africaine</option>
+                        <option value="jungle_tropicale">Jungle Tropicale</option>
+                        <option value="marais">Marais</option>
+                        <!-- Ajoutez d'autres options d'habitats ici -->
+                    </select>
+                </div>
+                <div class="inputs">
+                    <textarea id="habitat_comment" name="habitat_comment" placeholder="Commentaire sur l'état de l'habitat et suggestions d'amélioration" required></textarea>
+                </div>
+                 <button type="submit">Envoyer</button>
+            </form>
+        </section>
+        
+        <section class="table">
+            <h2>Commentaires sur les Habitats</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Habitat</th>
+                        <th>Commentaire</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="habitatCommentsTableBody">
+                    <!-- Les commentaires seront insérés ici dynamiquement -->
+                </tbody>
+            </table>
+        </section>
+        
+        
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

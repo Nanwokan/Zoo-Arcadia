@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/css h & f.css">
+    <link rel="stylesheet" href="../CSS/css ash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header visiteur -->
+    <header>
+        <div class="logo">
+            <img src="../source/img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+        </div>
+        <nav class="nav-visiteur">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="connexion">
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </header>
+    <!-- Contenu de la page d'accueil -->
+    <section class="main">
+        <video autoplay muted loop id="background-video">
+            <source src="../Pages HTML/Design sans titre.mp4" type="video/mp4">
+        </video>
+    </section>
+    <main>
+        <!-- Section des habitats -->
+        <section class="hab-present section1">
+            <h2>Nos Habitats</h2>
+            <div class="present-list hab-present-list">
+                <div class="list-card">
+                    <img src="../source/img/sectionimg/1.png" class="card-img-top" alt="Savane">
+                    <div class="card-body">
+                        <h3 class="card-title">Savane Africaine</h3>
+                        <p class="card-text">Découvrez nos animaux de la savane, notamment les lions, les zèbres...</p>
+                    </div>
+                </div>
+                <div class="list-card">
+                    <img src="../source/img/sectionimg/2.png" class="card-img-top" alt="Jungle">
+                    <div class="card-body">
+                        <h3 class="card-title">Jungle Tropicale</h3>
+                        <p class="card-text">Explorez la jungle et rencontrez nos singes, serpents et oiseaux exotiques.</p>
+                    </div>
+                </div>
+                <div class="list-card">
+                    <img src="../source/img/sectionimg/3.png" class="card-img-top" alt="Marais">
+                    <div class="card-body">
+                        <h3 class="card-title">Marais écologique</h3>
+                        <p class="card-text">Venez observer les animaux des marais, tels que les crocodiles et les tortues.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section des Services -->
+        <section class="serv-present section2">
+            <h2>Nos Services</h2>
+            <div class="present-list serv-present-list">
+                <div class="list-card">
+                    <img src="../source/img/sectionimg/4.png" class="card-img-top" alt="restauration">
+                    <div class="card-body">
+                        <h3 class="card-title">Restauration</h3>
+                        <p class="card-text">Profitez de notre service de restauration avec des options pour tous les goûts.</p>
+                    </div>
+                </div>
+                <div class="list-card">
+                    <img src="../source/img/sectionimg/5.png" class="card-img-top" alt="visite">
+                    <div class="card-body">
+                        <h3 class="card-title">Visite guidée</h3>
+                        <p class="card-text">Participez à une visite guidée gratuite de nos habitats avec nos experts.</p>
+                    </div>
+                </div>
+                <div class="list-card">
+                    <img src="../source/img/sectionimg/6.png" class="card-img-top" alt="train">
+                    <div class="card-body">
+                        <h3 class="card-title">Zoo-Choo!</h3>
+                        <p class="card-text">Explorez le zoo à bord de notre petit train pour une expérience unique.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="avis">
+            <div id="reviewsContainer">
+                <h2>Ce Que Nos Visiteurs Disent...</h2>
+                <!-- Les avis validés seront affichés ici -->
+            </div>
+            <div class="review-form">
+                <form id="reviewForm">
+                    <h2>Laissez un avis</h2>
+                    <div class="star-rating form-group">
+                        <span class="star" data-value="1">&#9733;</span>
+                        <span class="star" data-value="2">&#9733;</span>
+                        <span class="star" data-value="3">&#9733;</span>
+                        <span class="star" data-value="4">&#9733;</span>
+                        <span class="star" data-value="5">&#9733;</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pseudo">Pseudo</label>
+                        <input type="text" class="form-control" id="pseudo" name="pseudo" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">Commentaire</label>
+                        <textarea class="form-control" id="comment" name="comment" rows="3" required></textarea>
+                    </div>
+                    <input type="hidden" id="rating-value" name="rating" value="0">
+                    <button type="submit" class="btn btn-success">Envoyer</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div>
+            <div>
+                <h4>Arcadia Zoo <br>123 Avenue des Animaux <br>75000 Ville de Zoo</h4>
+                <h4>Contacts:</h4>
+                <ul>
+                    <li><a href="tel:+33123456789">+33 1 23 45 67 89</a> ou</li>
+                    <li><a href="mailto:info@arcadiazoo.com">info@arcadiazoo.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="politique_confidentialite.html">Politiques de confidentialité</a></li>
+                    <li><a href="mentions_legales.html">Mentions légales</a></li>
+                    <li><a href="conditions_utilisation.html">Conditions d'utilisation</a></li>
+                    <li><a href="plan_site.html">Plan du site</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Réseaux Sociaux :</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/votrepage">Facebook</a></li>
+                    <li><a href="https://www.twitter.com/votrecompte">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/votrecompte">Instagram</a></li>
+                </ul>
+                <h4>Langue :
+                    <select id="langSelector">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
+                </h4>
+                <h4>Crédits :</h4>
+                <ul>
+                    <li>Conçu et développé par DevOkan</li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+    <!-- Scripts -->
+    <script>
+        document.getElementById('reviewForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Récupérer les valeurs du formulaire
+            const pseudo = document.getElementById('pseudo').value;
+            const comment = document.getElementById('comment').value;
+            const rating = document.getElementById('rating-value').value;
+
+            // Afficher l'avis soumis (à remplacer par une soumission au serveur)
+            const reviewsContainer = document.getElementById('reviewsContainer');
+            const reviewCard = document.createElement('div');
+            reviewCard.classList.add('card', 'review-card');
+            reviewCard.innerHTML = `
+                <div class="card-body">
+                    <h3 class="card-title">${pseudo}</h3>
+                    <div class="star-rating">${'&#9733;'.repeat(rating)}</div>
+                    <p class="card-text">${comment}</p>
+                </div>
+            `;
+            reviewsContainer.appendChild(reviewCard);
+
+            // Réinitialiser le formulaire
+            document.getElementById('reviewForm').reset();
+            document.getElementById('rating-value').value = '0';
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const stars = document.querySelectorAll('.star');
+            const ratingValue = document.getElementById('rating-value');
+            let selectedRating = 0;
+
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    selectedRating = star.getAttribute('data-value');
+                    ratingValue.value = selectedRating;
+                    highlightStars(selectedRating);
+                });
+
+                star.addEventListener('mouseover', () => {
+                    highlightStars(star.getAttribute('data-value'));
+                });
+
+                star.addEventListener('mouseout', () => {
+                    highlightStars(selectedRating);
+                });
+            });
+
+            function highlightStars(rating) {
+                stars.forEach(star => {
+                    star.classList.remove('selected');
+                    if (star.getAttribute('data-value') <= rating) {
+                        star.classList.add('selected');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

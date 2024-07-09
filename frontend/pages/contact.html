@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/css h & f.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("http://cdn.wallpapersafari.com/73/95/x5jghF.jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header visiteur -->
+    <header>
+        <div class="logo">
+            <img src="../source/img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+        </div>
+        <nav class="nav-visiteur">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="connexion">
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </header>
+    <!-- Contenu de la page de contact -->
+    <main>
+        <section>
+            
+            <form class="form_contact" action="submit_contact.php" method="post">
+                <h1>Contactez-nous!</h1>
+                <p>Besoins d’informations ?  merci de compèter ce formulaire.</p><br>
+                <input type="text" id="nom" name="nom" placeholder="Votre Nom" required>
+
+                <input type="email" id="email" name="email" placeholder="Votre Email" required>
+            
+                <input type="text" id="sujet" name="sujet" placeholder="Sujet" required>
+            
+                <textarea id="message" name="message" placeholder="Veuillez entrer votre message" required></textarea>
+            
+                <button type="submit">Envoyer</button>
+            </form> 
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div>
+            <div>
+                <h4>Arcadia Zoo <br>123 Avenue des Animaux <br>75000 Ville de Zoo</h4>
+                <h4>Contacts:</h4>
+                <ul>
+                    <li><a href="tel:+331234567">+33 1 23 45 67</a>  ou</li>
+                    <li><a href="mailto:info@arcadiazoo.com">info@arcadiazoo.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="politique_confidentialite.html">Politiques de confidentialité</a></li>
+                    <li><a href="mentions_legales.html">Mentions légales</a></li>
+                    <li><a href="conditions_utilisation.html">Conditions d'utilisation</a></li>
+                    <li><a href="plan_site.html">Plan du site</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Réseaux Sociaux :</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/votrepage">Facebook</a></li>
+                    <li><a href="https://www.twitter.com/votrecompte">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/votrecompte">Instagram</a></li>
+                </ul>
+                <h4>Langue : 
+                    <select id="langSelector">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
+                </h4>
+                <h4>Crédits :</h4>
+                <ul>
+                    <li>Conçu et développé par DevOkan</li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    function sendContactForm(event) {
+        event.preventDefault();
+
+        const title = document.getElementById('contact_title').value;
+        const description = document.getElementById('contact_description').value;
+        const email = document.getElementById('contact_email').value;
+
+        fetch('/api/contact.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, description, email })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Votre message a bien été reçu par nos équipes !');
+                document.getElementById('contactForm').reset();
+            } else {
+                alert('Erreur lors de l\'envoi du message');
+            }
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de l\'envoi du message');
+        });
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', sendContactForm);
+});
+
+
+    </script>
+</body>
+</html>

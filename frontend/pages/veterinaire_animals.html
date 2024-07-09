@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saisie de Consommation Alimentaire - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/Code CSS.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="top">
+            <div class="logo">
+              <span></span>
+            </div>
+            <i class="bx bx-menu" id="btn"></i>
+        </div> <br>
+        <div class="user">
+            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me" class="user-img">
+            <div>
+                <p class="bold">Nanwokan O.</p>
+                <p>admin</p>
+            </div>
+        </div>
+        <ul>
+            <li>
+                <a href="../Pages HTML/employe_validate_reviews.html">
+                    <i class="bx bxs-dashboard"></i>
+                    <span class="nav-items">Accueil</span>
+                </a>
+                <span class="tooltip">Tableau de Bord</span>
+            </li>
+            <li>
+                <a href="../Pages HTML/veterinaire_habitats.html">
+                    <i class="bx bx-task"></i>
+                    <span class="nav-items">Habitats</span>
+                </a>
+                <span class="tooltip">Habitats</span>
+            </li>
+            <li>
+                <a href="../Pages HTML/veterinaire_animals.html">
+                    <i class="bx bxs-dog"></i>
+                    <span class="nav-items">Animaux</span>
+                </a>
+                <span class="tooltip">Animaux</span>
+            </li>
+            <li>
+                <a href="../Pages HTML/veterinaire_reports.html">
+                    <i class="bx bxs-dog"></i>
+                    <span class="nav-items">Rapports</span>
+                </a>
+                <span class="tooltip">Rapports</span>
+            </li>
+            <li>
+                <a href="index.html">
+                    <i class="bx bx-log-out"></i>
+                    <span class="nav-items">Déconnexion</span>
+                </a>
+                <span class="tooltip">Déconnexion</span>
+            </li>
+        </ul>
+        
+    </aside>
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <section class="table">
+            <h2>Détails de l'alimentation des Animaux</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            Prénom
+                            <input type="text" id="filterFirstName" onkeyup="filterTable()" placeholder="Filtrer par prénom">
+                        </th>
+                        <th>
+                            Espèce
+                            <input type="text" id="filterSpecies" onkeyup="filterTable()" placeholder="Filtrer par espèce">
+                        </th>
+                        <th>
+                            Date
+                            <input type="date" id="filterDate" onkeyup="filterTable()" placeholder="Filtrer par Date">
+                        </th>
+                        <th>Nourriture</th>
+                        <th>Grammage</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="feedingDetailsTableBody">
+                    <!-- Les détails de l'alimentation seront insérés ici dynamiquement -->
+                </tbody>
+            </table>
+        </section>
+        
+        
+        
+    </main>
+    <footer>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/css h & f.css">
+    <link rel="stylesheet" href="../CSS/css ash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header visiteur -->
+    <header>
+        <div class="logo">
+            <img src="../source/img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+        </div>
+        <nav class="nav-visiteur">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="connexion">
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </header>
+    <!-- Contenu de la page des services -->
+    <main>
+        <section id="services">
+            <div>
+            <h1>Profitez de Nos Services</h1>
+            <p>
+                Au Zoo Arcadia, nous offrons une gamme de services pour rendre votre visite inoubliable. Profitez de notre restauration, participez à des visites guidées gratuites des habitats, ou embarquez pour une visite du zoo en petit train. Nous sommes là pour rendre votre expérience aussi agréable et mémorable que possible.
+            </p>
+        </div>
+        </section>
+        <br>
+        <section class="serv-present section2">
+            <div class="present-list serv-present-list">
+                <div class="list-card">
+                        <img src="../source/img/sectionimg/4.png" class="card-img-top" alt="restauration">
+                        <div class="card-body">
+                            <h3 class="card-title">Restauration</h3>
+                            <p class="card-text">Profitez de notre service de restauration avec des options pour tous
+                                les goûts.</p>
+                        </div>
+  
+                </div>
+                <div class="list-card">
+                        <img src="../source/img/sectionimg/5.png" class="card-img-top" alt="visite">
+                        <div class="card-body">
+                            <h3 class="card-title">Visite guidée</h3>
+                            <p class="card-text">Participez à une visite guidée gratuite de nos habitats avec nos
+                                experts.</p>
+                        </div>
+  
+                </div>
+                <div class="list-card">
+                        <img src="../source/img/sectionimg/6.png" class="card-img-top" alt="train">
+                        <div class="card-body">
+                            <h3 class="card-title">Zoo-Choo Express!</h3>
+                            <p class="card-text">Explorez le zoo à bord de notre petit train pour une expérience unique.
+                            </p>
+                        </div>
+        
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div>
+            <div>
+                <h4>Arcadia Zoo <br>123 Avenue des Animaux <br>75000 Ville de Zoo</h4>
+                <h4>Contacts:</h4>
+                <ul>
+                    <li><a href="tel:+331234567">+33 1 23 45 67</a>  ou</li>
+                    <li><a href="mailto:info@arcadiazoo.com">info@arcadiazoo.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="politique_confidentialite.html">Politiques de confidentialité</a></li>
+                    <li><a href="mentions_legales.html">Mentions légales</a></li>
+                    <li><a href="conditions_utilisation.html">Conditions d'utilisation</a></li>
+                    <li><a href="plan_site.html">Plan du site</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Réseaux Sociaux :</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/votrepage">Facebook</a></li>
+                    <li><a href="https://www.twitter.com/votrecompte">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/votrecompte">Instagram</a></li>
+                </ul>
+                <h4>Langue : 
+                    <select id="langSelector">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
+                </h4>
+                <h4>Crédits :</h4>
+                <ul>
+                    <li>Conçu et développé par DevOkan</li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+    <script>
+        async function fetchServices() {
+            try {
+                const response = await fetch('/api/services');
+                const services = await response.json();
+                const servicesList = document.getElementById('servicesList');
+
+                services.forEach(service => {
+                    const serviceDiv = document.createElement('div');
+                    serviceDiv.classList.add('service');
+
+                    const serviceName = document.createElement('h3');
+                    serviceName.textContent = service.nom;
+                    serviceDiv.appendChild(serviceName);
+
+                    const serviceDescription = document.createElement('p');
+                    serviceDescription.textContent = service.description;
+                    serviceDiv.appendChild(serviceDescription);
+
+                    servicesList.appendChild(serviceDiv);
+                });
+            } catch (error) {
+                console.error('Erreur lors de la récupération des services :', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchServices);
+    </script>
+
+</body>
+</html>
