@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des services - Zoo Arcadia</title>
     <link rel="stylesheet" href="../CSS/Code CSS.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
-
 <body>
     <aside class="sidebar">
         <div class="top">
@@ -25,43 +22,43 @@
         </div>
         <ul>
             <li>
-                <a href="../Pages HTML/admin_dashboard.html">
+                <a href="admin_dashboard.html">
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_accounts.html">
+                <a href="admin_accounts.html">
                     <i class="bx bxs-user-account"></i>
                     <span class="nav-items">Comptes</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_services.html">
+                <a href="admin_services.html">
                     <i class='bx bx-task'></i>
                     <span class="nav-items">Services</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_habitats.html">
+                <a href="admin_habitats.html">
                     <i class="bx bxs-building-house"></i>
                     <span class="nav-items">Habitats</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_animals.html">
+                <a href="admin_animals.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Animaux</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_reports.html">
+                <a href="admin_reports.html">
                     <i class='bx bxs-first-aid'></i>
                     <span class="nav-items">Consultations</span>
                 </a>
             </li>
             <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
                 </a>
@@ -70,7 +67,7 @@
     </aside>
     <div class="topbar">
         <div class="logo">
-            <img src="../source/img/logo/logo sans fond.png" alt="">
+            <img src="../img/logo/logo sans fond.png" alt="">
         </div>
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Rechercher...">
@@ -85,37 +82,30 @@
     <!-- Contenu principal -->
     <main class="main-content">
         <section id="formContainer" class="hidden">
-            <form id="serviceForm">
+            <form id="serviceForm" action="http://localhost:2004/api/services" method="POST">
                 <div class="row-title-select">
                     <h2>Ajouter un service</h2>
-                    <select id="service_day" name="service_day" required>
-                        <option value="" disabled selected>Jour</option>
-                        <option value="Lundi">Lundi</option>
-                        <option value="Mardi">Mardi</option>
-                        <option value="Mercredi">Mercredi</option>
-                        <option value="Jeudi">Jeudi</option>
-                        <option value="Vendredi">Vendredi</option>
-                        <option value="Samedi">Samedi</option>
-                        <option value="Dimanche">Dimanche</option>
-                    </select>
                 </div>
                 <div class="inputs">
-                    <input type="text" id="service_name" name="service_name" placeholder="Nom" required>
-                    <input type="text" id="service_description" name="service_description" placeholder="Description" required>
-                    <div class="label-input"> 
-                        <div>
-                            <label for="opening_time">Heure d'ouverture</label>
-                            <input type="time" id="opening_time" name="opening_time" required>
-                        </div>
-                        <div>
-                            <label for="closing_time">Heure de fermeture</label>
-                            <input type="time" id="closing_time" name="closing_time" required>
-                        </div>
-                    </div>
+                    <input type="text" id="service_name" name="nom" placeholder="Nom" required>
+                    <input type="text" id="service_description" name="description" placeholder="Description" required>
                 </div>
                 <button type="submit">Ajouter</button>
             </form>
         </section>
+        <section id="editFormContainer" class="hidden">
+            <form id="editServiceForm">
+                <div class="row-title-select">
+                    <h2>Modifier un service</h2>
+                </div>
+                <div class="inputs">
+                    <input type="hidden" id="edit_service_id" name="service_id">
+                    <input type="text" id="edit_service_name" name="nom" placeholder="Nom" required>
+                    <input type="text" id="edit_service_description" name="description" placeholder="Description" required>
+                </div>
+                <button type="submit">Modifier</button>
+            </form>
+        </section>        
         <div class="cards">
             <section id="tableSection">
                 <h3>Services</h3>
@@ -123,7 +113,7 @@
                     <thead>
                         <tr>
                             <th>Services</th>
-                            <th>Horaires</th>
+                            <th>Descriptions</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -167,72 +157,113 @@
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
+    <script src="../js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const serviceForm = document.getElementById('serviceForm');
+            const editServiceForm = document.getElementById('editServiceForm');
             const serviceTableBody = document.getElementById('serviceTableBody');
+            const formContainer = document.getElementById('formContainer');
+            const editFormContainer = document.getElementById('editFormContainer');
             let services = [];
-            let editingIndex = null;
-
+    
+            function loadServices() {
+                return fetch('http://localhost:2004/api/services')
+                    .then(response => response.json())
+                    .then(data => {
+                        services = data;
+                        serviceTableBody.innerHTML = '';
+                        services.forEach(service => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${service.nom}</td>
+                                <td>${service.description}</td>
+                                <td>
+                                    <button onclick="showEditForm(${service.service_id})">Modifier</button>
+                                    <button onclick="deleteService(${service.service_id})">Supprimer</button>
+                                </td>
+                            `;
+                            serviceTableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
+    
             serviceForm.addEventListener('submit', function (event) {
                 event.preventDefault();
-
-                const serviceName = document.getElementById('service_name').value;
-                const serviceDescription = document.getElementById('service_description').value;
-                const openingTime = document.getElementById('opening_time').value;
-                const closingTime = document.getElementById('closing_time').value;
-                const serviceDay = document.getElementById('service_day').value;
-
-                const newService = { serviceName, serviceDescription, openingTime, closingTime, serviceDay };
-
-                if (editingIndex !== null) {
-                    services[editingIndex] = newService;
-                    editingIndex = null;
-                } else {
-                    services.push(newService);
+    
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+    
+                fetch('http://localhost:2004/api/services', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        serviceForm.reset();
+                        loadServices();
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            });
+    
+            editServiceForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+    
+                const service_id = document.getElementById('edit_service_id').value;
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+    
+                fetch(`http://localhost:2004/api/services/${service_id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Service modifié:', data);
+                        editServiceForm.reset();
+                        editFormContainer.classList.add('hidden');
+                        formContainer.classList.remove('hidden');
+                        loadServices();
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            });
+    
+            window.showEditForm = function (service_id) {
+                const service = services.find(s => s.service_id === service_id);
+                if (service) {
+                    document.getElementById('edit_service_id').value = service.service_id;
+                    document.getElementById('edit_service_name').value = service.nom;
+                    document.getElementById('edit_service_description').value = service.description;
+    
+                    formContainer.classList.add('hidden');
+                    editFormContainer.classList.remove('hidden');
                 }
-
-                displayServices();
-                serviceForm.reset();
-                document.getElementById('formContainer').classList.add('hidden');
-            });
-
-            function displayServices() {
-                serviceTableBody.innerHTML = '';
-                services.forEach((service, index) => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${service.serviceName} (${service.serviceDay})</td>
-                        <td>${service.openingTime} - ${service.closingTime}</td>
-                        <td>
-                            <button onclick="modifyService(${index})">Modifier</button>
-                            <button onclick="deleteService(${index})">Supprimer</button>
-                        </td>
-                    `;
-                    serviceTableBody.appendChild(tr);
-                });
-            }
-
-            window.modifyService = function (index) {
-                const service = services[index];
-                document.getElementById('service_name').value = service.serviceName;
-                document.getElementById('service_description').value = service.serviceDescription;
-                document.getElementById('opening_time').value = service.openingTime;
-                document.getElementById('closing_time').value = service.closingTime;
-                document.getElementById('service_day').value = service.serviceDay;
-                editingIndex = index;
-                document.getElementById('formContainer').classList.remove('hidden');
             };
-
-            window.deleteService = function (index) {
-                services.splice(index, 1);
-                displayServices();
+    
+            window.deleteService = function (service_id) {
+                if (confirm('Voulez-vous vraiment supprimer ce service ?')) {
+                    fetch(`http://localhost:2004/api/services/${service_id}`, {
+                        method: 'DELETE'
+                    })
+                        .then(() => {
+                            console.log('Service supprimé');
+                            loadServices();
+                        })
+                        .catch(error => console.error('Erreur:', error));
+                }
             };
-
-            document.getElementById('toggleFormBtn').addEventListener('click', function () {
-                document.getElementById('formContainer').classList.toggle('hidden');
-            });
+    
+            loadServices();
         });
     </script>
+    
 </body>
 </html>

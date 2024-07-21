@@ -1,23 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etat des Habitats - Zoo Arcadia</title>
     <link rel="stylesheet" href="../CSS/Code CSS.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="top">
             <div class="logo">
-              <span></span>
+                <span></span>
             </div>
             <i class="bx bx-menu" id="btn"></i>
         </div> <br>
         <div class="user">
-            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me" class="user-img">
+            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me"
+                class="user-img">
             <div>
                 <p class="bold">Nanwokan O.</p>
                 <p>admin</p>
@@ -25,72 +29,79 @@
         </div>
         <ul>
             <li>
-                <a href="../Pages HTML/employe_validate_reviews.html">
+                <a href="#">
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Accueil</span>
                 </a>
-                <span class="tooltip">Tableau de Bord</span>
             </li>
             <li>
-                <a href="../Pages HTML/veterinaire_habitats.html">
+                <a href="veterinaire_habitats.html">
                     <i class="bx bx-task"></i>
                     <span class="nav-items">Habitats</span>
                 </a>
-                <span class="tooltip">Habitats</span>
             </li>
             <li>
-                <a href="../Pages HTML/veterinaire_animals.html">
+                <a href="veterinaire_animals.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Animaux</span>
                 </a>
-                <span class="tooltip">Animaux</span>
             </li>
             <li>
-                <a href="../Pages HTML/veterinaire_reports.html">
+                <a href="veterinaire_reports.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Rapports</span>
                 </a>
-                <span class="tooltip">Rapports</span>
             </li>
             <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
                 </a>
-                <span class="tooltip">Déconnexion</span>
             </li>
         </ul>
-        
+
     </aside>
+    <div class="topbar">
+        <div class="logo">
+            <img src="../img/logo/logo sans fond.png" alt="">
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Rechercher...">
+            <button id="searchBtn"><i class="bx bx-search-alt"></i></button>
+        </div>
+        <div class="btn_topbar">
+            <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
+            <i class="bx bxs-message-rounded-dots"></i>
+            <i class="bx bxs-bell"></i>
+        </div>
+    </div>
     <!-- Contenu principal -->
     <main class="main-content">
         <section>
-            <form id="userForm">
+            <form id="userForm" method="post" action="javascript:void(0);">
                 <div class="row-title-select">
-                    <h2>Info Habitat</h2>
+                    <h2>Observations Habitats</h2>
                     <select id="selectHabitat" name="selectHabitat" required>
                         <option value="" disabled selected>Choisissez un habitat</option>
-                        <option value="savane_africaine">Savane Africaine</option>
-                        <option value="jungle_tropicale">Jungle Tropicale</option>
-                        <option value="marais">Marais</option>
-                        <!-- Ajoutez d'autres options d'habitats ici -->
+                        <!-- alimenté cette partie avec les données (nom) de la table habitat -->
                     </select>
                 </div>
                 <div class="inputs">
-                    <textarea id="habitat_comment" name="habitat_comment" placeholder="Commentaire sur l'état de l'habitat et suggestions d'amélioration" required></textarea>
+                    <textarea id="habitat_comment" name="habitat_comment"
+                        placeholder="Commentaire sur l'état de l'habitat et suggestions d'amélioration"
+                        required></textarea>
                 </div>
-                 <button type="submit">Envoyer</button>
+                <button type="submit">Envoyer</button>
             </form>
         </section>
-        
         <section class="table">
-            <h2>Commentaires sur les Habitats</h2>
+            <h2>Observations Habitats</h2>
             <table>
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Habitat</th>
                         <th>Commentaire</th>
-                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody id="habitatCommentsTableBody">
@@ -98,12 +109,88 @@
                 </tbody>
             </table>
         </section>
-        
-        
-        
     </main>
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectHabitat = document.getElementById('selectHabitat');
+            const habitatCommentsTableBody = document.getElementById('habitatCommentsTableBody');
+            const userForm = document.getElementById('userForm');
+
+            // Charger les habitats et remplir le sélecteur
+            function loadHabitats() {
+                fetch('http://localhost:2004/api/habitats')
+                    .then(response => response.json())
+                    .then(data => {
+                        data.forEach(habitat => {
+                            const option = document.createElement('option');
+                            option.value = habitat.habitat_id;
+                            option.textContent = habitat.nom;
+                            selectHabitat.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
+
+            // Soumettre un commentaire sur l'habitat
+            userForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const habitatId = selectHabitat.value;
+                const comment = document.getElementById('habitat_comment').value;
+
+                fetch('http://localhost:2004/api/commentaire_habitat', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        habitat_id: habitatId,
+                        commentaire: comment
+                    })
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert('Commentaire ajouté avec succès !');
+                        loadHabitatComments();
+                        userForm.reset();
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            });
+
+            // Charger les commentaires sur les habitats
+            function loadHabitatComments() {
+                fetch('http://localhost:2004/api/commentaire_habitat')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Erreur réseau');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        habitatCommentsTableBody.innerHTML = '';
+                        data.forEach(comment => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                        <td>${new Date(comment.date).toLocaleDateString()}</td>
+                        <td>${comment.habitat_nom}</td>
+                        <td>${comment.commentaire}</td>
+                    `;
+                            habitatCommentsTableBody.appendChild(tr);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
+
+            // Charger les habitats et les commentaires au chargement de la page
+            loadHabitats();
+            loadHabitatComments();
+        });
+
+    </script>
 </body>
+
 </html>

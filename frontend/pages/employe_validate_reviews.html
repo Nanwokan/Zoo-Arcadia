@@ -29,25 +29,25 @@
         </div>
         <ul>
             <li>
-                <a href="../Pages HTML/employe_validate_reviews.html">
+                <a href="employe_validate_reviews.html">
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Accueil</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/employe_modify_services.html">
+                <a href="employe_modify_services.html">
                     <i class="bx bx-task"></i>
                     <span class="nav-items">Services</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/employe_food_consumption.html">
+                <a href="employe_food_consumption.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Animaux</span>
                 </a>
             </li>
             <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
                 </a>
@@ -57,7 +57,7 @@
     </aside>
     <div class="topbar">
         <div class="logo">
-            <img src="../source/img/logo/logo sans fond.png" alt="">
+            <img src="../img/logo/logo sans fond.png" alt="">
         </div>
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Rechercher...">
@@ -113,65 +113,74 @@
         document.addEventListener('DOMContentLoaded', function () {
             const reviewsTableBody = document.getElementById('reviewsTableBody');
             const approvedReviewsTableBody = document.getElementById('approvedReviewsTableBody');
-
-            // Exemple de données pour les avis
-            const reviews = [
-                { name: 'Jean Dupont', rating: 5, comment: 'Super expérience!', date: '2024-07-01', approved: false },
-                { name: 'Marie Curie', rating: 4, comment: 'Les animaux sont bien traités.', date: '2024-07-02', approved: false },
-            ];
-
-            function displayReviews() {
-                reviewsTableBody.innerHTML = ''; // Clear existing rows
-                approvedReviewsTableBody.innerHTML = ''; // Clear existing rows
-
-                reviews.forEach((review, index) => {
-                    const tr = document.createElement('tr');
-
-                    tr.innerHTML = `
-                <td>${review.name}</td>
-                <td>${'★'.repeat(review.rating)}</td>
-                <td>${review.comment}</td>
-                <td>${review.date}</td>
-            `;
-
-                    if (!review.approved) {
-                        tr.innerHTML += `
-                    <td>
-                        <button onclick="approveReview(${index})">Approuver</button>
-                        <button onclick="rejectReview(${index})">Rejeter</button>
-                    </td>
-                `;
-                        reviewsTableBody.appendChild(tr);
-                    } else {
-                        tr.innerHTML += `
-                    <td>
-                        <button onclick="deleteApprovedReview(${index})">Supprimer</button>
-                    </td>
-                `;
-                        approvedReviewsTableBody.appendChild(tr);
-                    }
-                });
+    
+            function loadReviews() {
+                fetch('http://localhost:2004/api/avis')
+                .then(response => response.json())
+                .then(avis => {
+                    reviewsTableBody.innerHTML = '';
+                    approvedReviewsTableBody.innerHTML = '';
+    
+                    avis.forEach((review) => {
+                        const tr = document.createElement('tr');
+    
+                        tr.innerHTML = `
+                            <td>${review.pseudo}</td>
+                            <td>${'★'.repeat(review.rating || 0)}</td>
+                            <td>${review.commentaire}</td>
+                            <td>${new Date(review.createdAt).toLocaleDateString()}</td>
+                        `;
+    
+                        if (!review.isVisible) {
+                            tr.innerHTML += `
+                                <td>
+                                    <button onclick="approveReview(${review.avis_id})">Approuver</button>
+                                    <button onclick="rejectReview(${review.avis_id})">Rejeter</button>
+                                </td>
+                            `;
+                            reviewsTableBody.appendChild(tr);
+                        } else {
+                            tr.innerHTML += `
+                                <td>
+                                    <button onclick="deleteApprovedReview(${review.avis_id})">Supprimer</button>
+                                </td>
+                            `;
+                            approvedReviewsTableBody.appendChild(tr);
+                        }
+                    });
+                })
+                .catch(error => console.error('Erreur:', error));
             }
-
-            window.approveReview = function (index) {
-                reviews[index].approved = true;
-                displayReviews();
+    
+            window.approveReview = function (id) {
+                fetch(`http://localhost:2004/api/avis/${id}/validate`, {
+                    method: 'PUT'
+                })
+                .then(response => response.json())
+                .then(() => loadReviews())
+                .catch(error => console.error('Erreur:', error));
             };
-
-            window.rejectReview = function (index) {
-                reviews.splice(index, 1);
-                displayReviews();
+    
+            window.rejectReview = function (id) {
+                fetch(`http://localhost:2004/api/avis/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(() => loadReviews())
+                .catch(error => console.error('Erreur:', error));
             };
-
-            window.deleteApprovedReview = function (index) {
-                reviews.splice(index, 1);
-                displayReviews();
+    
+            window.deleteApprovedReview = function (id) {
+                fetch(`http://localhost:2004/api/avis/${id}`, {
+                    method: 'DELETE'
+                })
+                .then(() => loadReviews())
+                .catch(error => console.error('Erreur:', error));
             };
-
-            displayReviews();
+    
+            loadReviews();
         });
-
     </script>
+    
 </body>
 
 </html>

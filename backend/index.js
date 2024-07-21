@@ -1,21 +1,30 @@
+require('./models/associations');
 const express = require('express');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 const cors = require('cors');
-const db = require('./config/db');  // Assurez-vous que le fichier db.js est bien importé
+const morgan = require('morgan');
+const routes = require('./routes');
+
+dotenv.config();
 
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 2004;
 
-app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use(morgan('combined'));
 
-const animalRoutes = require('./routes/animalRoutes');
-const habitatRoutes = require('./routes/habitatRoutes');
+app.use('/api', routes);
 
-app.use('/animals', animalRoutes);
-app.use('/habitats', habitatRoutes);
-
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-});
+const sequelize = require('./config/db');
+sequelize.sync()
+  .then(() => {
+    console.log('Database connected and synchronized');
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error('Unable to connect to the database:', error);
+  });

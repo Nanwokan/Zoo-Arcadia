@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
+
 <body>
     <aside class="sidebar">
         <div class="top">
@@ -22,43 +24,43 @@
         </div>
         <ul>
             <li>
-                <a href="../Pages HTML/admin_dashboard.html">
+                <a href="admin_dashboard.html">
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Dashboard</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_accounts.html">
+                <a href="admin_accounts.html">
                     <i class="bx bxs-user-account"></i>
                     <span class="nav-items">Comptes</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_services.html">
+                <a href="admin_services.html">
                     <i class='bx bx-task'></i>
                     <span class="nav-items">Services</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_habitats.html">
+                <a href="admin_habitats.html">
                     <i class="bx bxs-building-house"></i>
                     <span class="nav-items">Habitats</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_animals.html">
+                <a href="admin_animals.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Animaux</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/admin_reports.html">
+                <a href="admin_reports.html">
                     <i class='bx bxs-first-aid'></i>
                     <span class="nav-items">Consultations</span>
                 </a>
             </li>
             <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
                 </a>
@@ -67,7 +69,7 @@
     </aside>
     <div class="topbar">
         <div class="logo">
-            <img src="../source/img/logo/logo sans fond.png" alt="">
+            <img src="../img/logo/logo sans fond.png" alt="">
         </div>
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Rechercher...">
@@ -76,35 +78,28 @@
         <div class="btn_topbar">
             <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
             <i class="bx bxs-message-rounded-dots"></i>
-            <i class="bx bxs-bell"></i>  
+            <i class="bx bxs-bell"></i>
         </div>
     </div>
     <!-- Contenu principal -->
     <main class="main-content">
         <section id="formContainer" class="hidden">
-            <form id="animalForm">
+            <form id="animalForm" enctype="multipart/form-data">
                 <div class="row-title-select">
                     <h2>Ajouter un animal</h2>
-                    <select id="associated_habitat" name="associated_habitat" required>
-                        <option value="" disabled selected>Habitat</option>
-                        <option value="savane_africaine">Savane Africaine</option>
-                        <option value="jungle_tropicale">Jungle Tropicale</option>
-                        <option value="marais">Marais</option>
-                        <!-- Ajoutez d'autres options d'habitats ici -->
+                    <select id="selectHabitat" name="habitat_id" required>
+                        <option value="" disabled selected>Choisissez un habitat</option>
                     </select>
                 </div>
+                <br>
                 <div class="inputs">
-                    <input type="text" id="animal_firstname" name="animal_firstname" placeholder="Prénom de l'animal" required>
+                    <select id="selectRace" name="race_id" required>
+                        <option value="" disabled selected>Choisissez une race</option>
+                    </select>
+                    <input type="text" id="newRace" name="newRace" placeholder="Ajouter une nouvelle race si non existante">
+                    <input type="text" id="animal_firstname" name="prenom" placeholder="Prénom de l'animal" required>
                     <input type="file" id="animal_photos" name="animal_photos[]" multiple accept="image/*" required>
-                    <input type="text" id="animal_species" name="animal_species" placeholder="Espèce" required>
-                    <div>
-                        <label for="last_medical_check">Dernière visite médicale</label>
-                        <input type="date" id="last_medical_check" name="last_medical_check" required>
-                    </div>
-                    <textarea id="animal_status" name="animal_status" placeholder="État de l'animal" required></textarea>
-                    <textarea id="animal_status_details" name="animal_status_details" placeholder="Détail de l'état de l'animal"></textarea>
-                    <input type="text" id="food_provided" name="food_provided" placeholder="Nourriture proposée" required>
-                    <input type="number" id="food_quantity" name="food_quantity" placeholder="Grammage (en grammes)" required> 
+                    <textarea id="animal_status" name="etat" placeholder="État de l'animal" required></textarea>
                 </div>
                 <button type="submit">Ajouter</button>
             </form>
@@ -116,8 +111,9 @@
                 <thead>
                     <tr>
                         <th>Prénom</th>
-                        <th>Espèce</th>
+                        <th>État</th>
                         <th>Habitat</th>
+                        <th>Race</th>
                         <th>Photos</th>
                         <th>Actions</th>
                     </tr>
@@ -132,95 +128,118 @@
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const animalForm = document.getElementById('animalForm');
-            const animalTableBody = document.getElementById('animalTableBody');
-            let animals = [];
-            let editingIndex = null;
 
-            animalForm.addEventListener('submit', function(event) {
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let btn = document.querySelector('#btn')
+            let sidebar = document.querySelector('.sidebar')
+
+            btn.onclick = function () {
+                sidebar.classList.toggle('active');
+            };
+
+            document.getElementById('toggleFormBtn').addEventListener('click', function () {
+                const formContainer = document.getElementById('formContainer');
+                formContainer.classList.toggle('hidden');
+            });
+
+            loadHabitats();
+            loadRaces();
+
+            const animalForm = document.getElementById('animalForm');
+
+            animalForm.addEventListener('submit', function (event) {
                 event.preventDefault();
 
-                const animalFirstName = document.getElementById('animal_firstname').value;
-                const animalSpecies = document.getElementById('animal_species').value;
-                const animalHabitat = document.getElementById('associated_habitat').value;
-                const animalPhotos = Array.from(document.getElementById('animal_photos').files).map(file => file.name);
-                const lastMedicalCheck = document.getElementById('last_medical_check').value;
-                const animalStatus = document.getElementById('animal_status').value;
-                const animalStatusDetails = document.getElementById('animal_status_details').value;
-                const foodProvided = document.getElementById('food_provided').value;
-                const foodQuantity = document.getElementById('food_quantity').value;
-
-                const newAnimal = { 
-                    firstName: animalFirstName, 
-                    species: animalSpecies, 
-                    habitat: animalHabitat, 
-                    photos: animalPhotos, 
-                    lastMedicalCheck: lastMedicalCheck,
-                    status: animalStatus,
-                    statusDetails: animalStatusDetails,
-                    food: {
-                        provided: foodProvided,
-                        quantity: foodQuantity
-                    }
-                };
-
-                if (editingIndex !== null) {
-                    animals[editingIndex] = newAnimal;
-                    editingIndex = null;
-                } else {
-                    animals.push(newAnimal);
-                }
-
-                displayAnimals();
-                animalForm.reset();
-                document.getElementById('formContainer').classList.add('hidden');
+                const formData = new FormData(animalForm);
+                fetch('http://localhost:2004/api/animals', {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        animalForm.reset();
+                        document.getElementById('formContainer').classList.add('hidden');
+                        loadAnimals();  // Recharge la liste des animaux après l'ajout
+                    })
+                    .catch(error => console.error('Erreur:', error));
             });
 
-            function displayAnimals() {
-                animalTableBody.innerHTML = '';
-                animals.forEach((animal, index) => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${animal.firstName}</td>
-                        <td>${animal.species}</td>
-                        <td>${animal.habitat}</td>
-                        <td>${animal.photos.length}</td>
-                        <td>
-                            <button onclick="modifyAnimal(${index})">Modifier</button>
-                            <button onclick="deleteAnimal(${index})">Supprimer</button>
-                        </td>
-                    `;
-                    animalTableBody.appendChild(tr);
-                });
+            function loadHabitats() {
+                fetch('http://localhost:2004/api/habitats')
+                    .then(response => response.json())
+                    .then(data => {
+                        const selectHabitat = document.getElementById('selectHabitat');
+                        data.forEach(habitat => {
+                            const option = document.createElement('option');
+                            option.value = habitat.habitat_id;
+                            option.textContent = habitat.nom;
+                            selectHabitat.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
             }
 
-            window.modifyAnimal = function(index) {
-                const animal = animals[index];
-                document.getElementById('animal_firstname').value = animal.firstName;
-                document.getElementById('animal_species').value = animal.species;
-                document.getElementById('associated_habitat').value = animal.habitat;
-                document.getElementById('last_medical_check').value = animal.lastMedicalCheck;
-                document.getElementById('animal_status').value = animal.status;
-                document.getElementById('animal_status_details').value = animal.statusDetails;
-                document.getElementById('food_provided').value = animal.food.provided;
-                document.getElementById('food_quantity').value = animal.food.quantity;
-                editingIndex = index;
-                document.getElementById('formContainer').classList.remove('hidden');
-            };
+            function loadRaces() {
+                fetch('http://localhost:2004/api/races')
+                    .then(response => response.json())
+                    .then(data => {
+                        const selectRace = document.getElementById('selectRace');
+                        data.forEach(race => {
+                            const option = document.createElement('option');
+                            option.value = race.race_id;
+                            option.textContent = race.label;
+                            selectRace.appendChild(option);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
 
-            window.deleteAnimal = function(index) {
-                animals.splice(index, 1);
-                displayAnimals();
-            };
+            function loadAnimals() {
+                fetch('http://localhost:2004/api/animals')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Ajoutez cette ligne pour vérifier la structure de data
+                        if (Array.isArray(data)) { // Ajoutez cette vérification
+                            const animalTableBody = document.getElementById('animalTableBody');
+                            animalTableBody.innerHTML = '';
+                            data.forEach(animal => {
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                                    <td>${animal.prenom}</td>
+                                    <td>${animal.etat}</td>
+                                    <td>${animal.Habitat ? animal.Habitat.nom : 'N/A'}</td>
+                                    <td>${animal.Race ? animal.Race.label : 'N/A'}</td>
+                                    <td>${animal.Images ? animal.Images.map(img => `<img src="data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(img.image_data)))}" width="100">`).join(' ') : 'N/A'}</td>
+                                    <td>
+                                        <button class="delete-btn" data-id="${animal.animal_id}">Supprimer</button>
+                                    </td>
+                                `;
+                                animalTableBody.appendChild(tr);
+                            });
 
-            document.getElementById('toggleFormBtn').addEventListener('click', function() {
-                document.getElementById('formContainer').classList.toggle('hidden');
-            });
+                            document.querySelectorAll('.delete-btn').forEach(button => {
+                                button.addEventListener('click', function () {
+                                    const id = this.getAttribute('data-id');
+                                    fetch(`http://localhost:2004/api/animals/${id}`, {
+                                        method: 'DELETE'
+                                    })
+                                        .then(response => response.json())
+                                        .then(() => loadAnimals())
+                                        .catch(error => console.error('Erreur:', error));
+                                });
+                            });
+                        } else {
+                            console.error('Données invalides:', data);
+                        }
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            }
 
-            displayAnimals();
+            loadAnimals();
         });
     </script>
 </body>
+
 </html>
