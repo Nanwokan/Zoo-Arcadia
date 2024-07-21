@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/css h & f.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url("http://cdn.wallpapersafari.com/73/95/x5jghF.jpg");
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="../img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+        </div>
+        <nav class="nav-visiteur">
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="connexion">
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </header>
+    <main>
+        <section class="form_connexion">
+            <form id="loginForm">
+                <h1>Connexion</h1>
+                <input type="email" id="email" name="email" placeholder="Adresse email" required>
+                <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+                <button type="submit">Se connecter</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <div>
+            <div>
+                <h4>Arcadia Zoo <br>123 Avenue des Animaux <br>75000 Ville de Zoo</h4>
+                <h4>Contacts:</h4>
+                <ul>
+                    <li><a href="tel:+331234567">+33 1 23 45 67</a> ou</li>
+                    <li><a href="mailto:info@arcadiazoo.com">info@arcadiazoo.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="politique_confidentialite.html">Politiques de confidentialité</a></li>
+                    <li><a href="mentions_legales.html">Mentions légales</a></li>
+                    <li><a href="conditions_utilisation.html">Conditions d'utilisation</a></li>
+                    <li><a href="plan_site.html">Plan du site</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Réseaux Sociaux :</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/votrepage">Facebook</a></li>
+                    <li><a href="https://www.twitter.com/votrecompte">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/votrecompte">Instagram</a></li>
+                </ul>
+                <h4>Langue :
+                    <select id="langSelector">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
+                </h4>
+                <h4>Crédits :</h4>
+                <ul>
+                    <li>Conçu et développé par DevOkan</li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:2004/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    alert('Connexion réussie');
+                    localStorage.setItem('user', JSON.stringify(data.user));
+                    // Redirection basée sur le rôle
+                    const userRoles = data.user.roles;
+                    if (userRoles.includes('administrateur')) {
+                        window.location.href = 'admin_dashboard.html';
+                    } else if (userRoles.includes('employé')) {
+                        window.location.href = 'employe_validate_reviews.html';
+                    } else if (userRoles.includes('vétérinaire')) {
+                        window.location.href = 'veterinaire_reports.html';
+                    } else {
+                        alert('Rôle non reconnu');
+                    }
+                } else {
+                    alert('Identifiants incorrects');
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue. Veuillez réessayer.');
+            }
+        });
+    </script>
+</body>
+
+</html>

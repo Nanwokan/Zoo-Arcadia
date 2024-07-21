@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitats - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/css h & f.css">
+    <link rel="stylesheet" href="../CSS/css ash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Header visiteur -->
+    <header>
+        <div class="logo">
+            <img src="../img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+        </div>
+        <nav class="nav-visiteur">
+            <ul>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="connexion">
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </header>
+    <!-- Contenu de la page des habitats -->
+    <main>
+        <section id="habitats">
+            <div>
+                <h1>Découvrez nos habitats</h1>
+                <p>
+                    Plongez dans un monde de diversité naturelle où chaque habitat vous réserve une découverte unique.
+                    De la savane africaine à la jungle tropicale, chaque environnement abrite une variété d'animaux
+                    fascinants dans leur habitat naturel. Préparez-vous à une aventure immersive au cœur de la nature
+                    sauvage.</p>
+            </div>
+        </section><br>
+        <section class="hab-present section1">
+            <div class="present-list hab-present-list">
+                <div class="list-card">
+                    <img src="../img/sectionimg/1.png" class="card-img-top" alt="Savane">
+                    <div class="card-body">
+                        <h3 class="card-title">Savane Africaine</h3>
+                        <p class="card-text">Découvrez nos animaux de la savane, notamment les lions, les zèbres... 
+                        </p>
+                    </div>
+                    <a href="animaux_savane.html"><i class="bx bxs-chevrons-right"></i></a>
+                </div>
+                <div class="list-card">
+
+                    <img src="../img/sectionimg/2.png" class="card-img-top" alt="Jungle">
+                    <div class="card-body">
+                        <h3 class="card-title">Jungle Tropicale</h3>
+                        <p class="card-text">Explorez la jungle et rencontrez nos singes, serpents et oiseaux exotiques.
+                        </p>
+                    </div>
+                    <a href="animaux_jungle.html"><i class="bx bxs-chevrons-right"></i></a>
+                </div>
+                <div class="list-card">
+                    <img src="../img/sectionimg/3.png" class="card-img-top" alt="Marais">
+                    <div class="card-body">
+                        <h3 class="card-title">Marais écologique</h3>
+                        <p class="card-text">Venez observer les animaux des marais, tels que les crocodiles et les
+                            tortues.</p>
+                    </div>
+                    <a href="animaux_marais.html"><i class="bx bxs-chevrons-right"></i></a>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <div>
+            <div>
+                <h4>Arcadia Zoo <br>123 Avenue des Animaux <br>75000 Ville de Zoo</h4>
+                <h4>Contacts:</h4>
+                <ul>
+                    <li><a href="tel:+331234567">+33 1 23 45 67</a> ou</li>
+                    <li><a href="mailto:info@arcadiazoo.com">info@arcadiazoo.com</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li><a href="politique_confidentialite.html">Politiques de confidentialité</a></li>
+                    <li><a href="mentions_legales.html">Mentions légales</a></li>
+                    <li><a href="conditions_utilisation.html">Conditions d'utilisation</a></li>
+                    <li><a href="plan_site.html">Plan du site</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Réseaux Sociaux :</h4>
+                <ul>
+                    <li><a href="https://www.facebook.com/votrepage">Facebook</a></li>
+                    <li><a href="https://www.twitter.com/votrecompte">Twitter</a></li>
+                    <li><a href="https://www.instagram.com/votrecompte">Instagram</a></li>
+                </ul>
+                <h4>Langue :
+                    <select id="langSelector">
+                        <option value="fr">Français</option>
+                        <option value="en">English</option>
+                    </select>
+                </h4>
+                <h4>Crédits :</h4>
+                <ul>
+                    <li>Conçu et développé par DevOkan</li>
+                </ul>
+            </div>
+        </div>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('http://localhost:3000/api/habitats')
+                .then(response => response.json())
+                .then(data => {
+                    const habitatList = document.getElementById('habitat-list');
+                    data.forEach(habitat => {
+                        const div = document.createElement('div');
+                        div.classList.add('habitat-item');
+                        div.innerHTML = `
+                            <h2>${habitat.nom}</h2>
+                            <p>${habitat.description}</p>
+                            <a href="animaux_${habitat.nom.toLowerCase()}.html" class="lien-suite">Découvrir</a>
+                        `;
+                        habitatList.appendChild(div);
+                    });
+                });
+        });
+    </script>
+
+</body>
+
+</html>

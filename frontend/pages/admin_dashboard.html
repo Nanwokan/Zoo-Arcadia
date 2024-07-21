@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Comptes - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/Code CSS.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="top">
+            <i class="bx bx-menu" id="btn"></i>
+        </div>
+        <div class="user">
+            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me"
+                class="user-img">
+            <div>
+                <p class="bold">Nanwokan O.</p>
+                <p>admin</p>
+            </div>
+        </div>
+        <ul>
+            <li>
+                <a href="admin_dashboard.html">
+                    <i class="bx bxs-dashboard"></i>
+                    <span class="nav-items">Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin_accounts.html">
+                    <i class="bx bxs-user-account"></i>
+                    <span class="nav-items">Comptes</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin_services.html">
+                    <i class='bx bx-task'></i>
+                    <span class="nav-items">Services</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin_habitats.html">
+                    <i class="bx bxs-building-house"></i>
+                    <span class="nav-items">Habitats</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin_animals.html">
+                    <i class="bx bxs-dog"></i>
+                    <span class="nav-items">Animaux</span>
+                </a>
+            </li>
+            <li>
+                <a href="admin_reports.html">
+                    <i class='bx bxs-first-aid'></i>
+                    <span class="nav-items">Consultations</span>
+                </a>
+            </li>
+            <li>
+                <a href="../index.html">
+                    <i class="bx bx-log-out"></i>
+                    <span class="nav-items">Déconnexion</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+    <div class="topbar">
+        <div class="logo">
+            <img src="../img/logo/logo sans fond.png" alt="">
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Rechercher...">
+            <button id="searchBtn"><i class="bx bx-search-alt"></i></button>
+        </div>
+        <div class="btn_topbar">
+            <i class="bx bxs-message-rounded-dots"></i>
+            <i class="bx bxs-bell"></i>
+        </div>
+    </div>
+    <!-- Contenu principal -->
+    <main class="main-content">
+        <div class="can-stats container">
+            <section class="graph">
+                <h2>Graphique de consultation</h2>
+                <canvas id="consultationChart" width="350" height="100"></canvas>
+                <button id="downloadData" class="btn-download">Télécharger toutes les données</button>
+            </section>
+            <section class="stats">
+                <h2>Statistiques clés</h2>
+                <div class="stats-items">
+                    <div class="stat">
+                        <h3>Nombre total d'animaux</h3>
+                        <canvas id="totalAnimalsChart" width="100" height="100"></canvas>
+                    </div>
+                    <div class="stat">
+                        <h3>Nombre de visites mensuelles</h3>
+                        <canvas id="monthlyVisitsChart" width="100" height="100"></canvas>
+                    </div>
+                    <div class="stat">
+                        <h3>Nombre de rapports vétérinaires</h3>
+                        <canvas id="vetReportsChart" width="100" height="100"></canvas>
+                    </div>
+                    <div class="stat">
+                        <h3>Nombre de services actifs</h3>
+                        <canvas id="activeServicesChart" width="100" height="100"></canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
+    </footer>
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Données de consultation avec le format "Prenom.Habitat"
+            const consultationData = {
+                labels: ['Léo.Savane', 'Félix.Jungle', 'Zara.Savane', 'Luna.Savane', 'Benny.Savane', 'Kira.Jungle', 'Raja.Marais', 'Rocco.Savane', 'Nina.Marais', 'Toby.Marais'],
+                datasets: [{
+                    label: 'Nombre de consultations',
+                    data: [120, 110, 90, 80, 70, 60, 50, 40, 30, 20],
+                    backgroundColor: [
+                        'rgba(128, 253, 255, 0.2)',
+                        'rgba(219, 160, 0, 0.2)',
+                        'rgba(245, 55, 209, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 99, 132, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(128, 253, 255, 1)',
+                        'rgba(219, 160, 0, 1)',
+                        'rgba(245, 55, 209, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 99, 132, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Initialisation du graphique des consultations
+            const ctx = document.getElementById('consultationChart').getContext('2d');
+            const consultationChart = new Chart(ctx, {
+                type: 'bar',
+                data: consultationData,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // Données pour les autres statistiques
+            const totalAnimalsData = {
+                labels: ['Savane','Jungle','Marais'],
+                datasets: [{
+                    data: [45, 50, 70],
+                    backgroundColor: [
+                        'rgba(245, 55, 209, 0.2)',
+                        'rgba(0, 255, 243, 0.25)',
+                        'rgba(219, 160, 0, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 55, 209, 1)',
+                        'rgba(0, 255, 243, 1)',
+                        'rgba(219, 160, 0, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const monthlyVisitsData = {
+                labels: ['Savane','Jungle','Marais'],
+                datasets: [{
+                    data: [45, 50, 70],
+                    backgroundColor: [
+                        'rgba(139, 69, 19, 0.3)',
+                        'rgba(1, 87, 0, 0.2)',
+                        'rgba(219, 160, 0, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(139, 69, 19, 1)',
+                        'rgba(1, 87, 0, 1)',
+                        'rgba(219, 160, 0, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const vetReportsData = {
+                labels: ['Savane','Jungle','Marais'],
+                datasets: [{
+                    data: [45, 50, 70],
+                    backgroundColor: [
+                        'rgba(245, 55, 209, 0.2)',
+                        'rgba(0, 255, 243, 0.25)',
+                        'rgba(219, 160, 0, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 55, 209, 1)',
+                        'rgba(0, 255, 243, 1)',
+                        'rgba(219, 160, 0, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            const activeServicesData = {
+                labels: ['Savane','Jungle','Marais'],
+                datasets: [{
+                    data: [45, 50, 70],
+                    backgroundColor: [
+                        'rgba(245, 55, 209, 0.2)',
+                        'rgba(0, 255, 243, 0.25)',
+                        'rgba(219, 160, 0, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(245, 55, 209, 1)',
+                        'rgba(0, 255, 243, 1)',
+                        'rgba(219, 160, 0, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            };
+
+            // Initialisation des autres graphiques
+            const totalAnimalsCtx = document.getElementById('totalAnimalsChart').getContext('2d');
+            const totalAnimalsChart = new Chart(totalAnimalsCtx, {
+                type: 'doughnut',
+                data: totalAnimalsData
+            });
+
+            const monthlyVisitsCtx = document.getElementById('monthlyVisitsChart').getContext('2d');
+            const monthlyVisitsChart = new Chart(monthlyVisitsCtx, {
+                type: 'doughnut',
+                data: monthlyVisitsData
+            });
+
+            const vetReportsCtx = document.getElementById('vetReportsChart').getContext('2d');
+            const vetReportsChart = new Chart(vetReportsCtx, {
+                type: 'doughnut',
+                data: vetReportsData
+            });
+
+            const activeServicesCtx = document.getElementById('activeServicesChart').getContext('2d');
+            const activeServicesChart = new Chart(activeServicesCtx, {
+                type: 'doughnut',
+                data: activeServicesData
+            });
+
+            // Fonction pour télécharger toutes les données en fichier Excel
+            function downloadExcel() {
+                const data = [
+                    ['Animal', 'Nombre de consultations'],
+                    ['Léo.Savane', 120],
+                    ['Félix.Jungle', 110],
+                    ['Zara.Savane', 90],
+                    ['Luna.Savane', 80],
+                    ['Benny.Savane', 70],
+                    ['Kira.Jungle', 60],
+                    ['Raja.Marais', 50],
+                    ['Rocco.Savane', 40],
+                    ['Nina.Marais', 30],
+                    ['Toby.Marais', 20]
+                ];
+
+                const worksheet = XLSX.utils.aoa_to_sheet(data);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Consultations');
+                XLSX.writeFile(workbook, 'consultations_animaux.xlsx');
+            }
+
+            // Ajouter un événement au bouton de téléchargement
+            document.getElementById('downloadData').addEventListener('click', downloadExcel);
+        });
+    </script>
+</body>
+
+</html>
