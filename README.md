@@ -48,7 +48,7 @@ Si votre package.json est configuré correctement, cela exécutera le script de 
 node backend/index.js
 
 Vérifier la structure de votre projet
-Assurez-vous que votre projet est structuré correctement. Voici un exemple de structure de projet typique :
+Assurez-vous que votre projet est structuré correctement.
 
 Zoo-Arcadia/
 │
