@@ -4,12 +4,12 @@
 Cette application web permet de gérer les différentes sections du zoo, incluant la gestion des animaux, des habitats, des services, et plus encore. Elle est conçue pour faciliter l'administration du zoo et offrir une expérience interactive aux visiteurs.
 
 ## Fonctionnalités
-- Affichage des animaux et de leurs états de santé
+- Affichage des animaux et de leurs états de santé (inachevé)
 - Gestion des habitats
 - Gestion des services offerts par le zoo
 - Espace administrateur pour la gestion complète du zoo
 - Espace employé pour la validation des avis et gestion des services
-- Espace vétérinaire pour les comptes rendus de santé des animaux
+- Espace vétérinaire pour les comptes rendus de santé des animaux (inachevé)
 - Possibilité pour les visiteurs de laisser des avis
 
 ## Installation
@@ -30,25 +30,72 @@ npm install
 ## Configuration
 Créez un fichier .env à la racine du projet avec les configurations nécessaires.
 
+DB_HOST=localhost
+DB_USER=nanwokan
+DB_PASSWORD=MoyahOuattara2003.
+DB_NAME=zoo_arcadia
 PORT=2004
-DB_HOST=your_database_host
-DB_USER=your_database_user
-DB_PASS=your_database_password
-DB_NAME=your_database_name
+EMAIL_USER= mail du zoo (gmail)
+EMAIL_PASS=mot de passe (gmail)
 
 ## Utilisation
-Pour démarrer l'application, utilisez la commande suivante :
+Pour démarrer l'application une fois dans le repertoire "Zoo-Arcadia", utilisez la commande suivante :
 
 npm start
 
-Accédez à l'application via http://localhost:2004 dans votre navigateur.
+Si votre package.json est configuré correctement, cela exécutera le script de démarrage défini. Si vous n'avez pas de script de démarrage, vous pouvez démarrer l'application directement en utilisant Node.js :
+
+node backend/index.js
+
+Vérifier la structure de votre projet
+Assurez-vous que votre projet est structuré correctement. Voici un exemple de structure de projet typique :
+
+Zoo-Arcadia/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   ├── controllers/
+│   │   ├── animalController.js
+│   │   ├── habitatController.js
+│   │   ├── imageController.js
+│   │   ├── raceController.js
+│   │   ├── ...
+│   │   ├── userController.js
+│   ├── middleware/
+│   │   └── upload.js
+│   ├── models/
+│   │   ├── Animal.js
+│   │   ├── Habitat.js
+│   │   ├── Image.js
+│   │   ├── Race.js
+│   │   ├── User.js
+│   │   ├── ...
+│   │   └── associations.js
+│   ├── routes/
+│   │   ├── animalRoutes.js
+│   │   ├── habitatRoutes.js
+│   │   ├── imageRoutes.js
+│   │   ├── raceRoutes.js
+│   │   ├── .....
+│   │   └── userRoutes.js
+│   └── index.js
+│
+├── frontend/
+│   ├── css/
+│   ├── js/
+│   ├── pages/
+│   └── index.html
+│
+├── .env
+├── package.json
+└── package-lock.json
 
 ## Technologies utilisées
 
 Node.js
 Express
 MySQL (ou une autre base de données relationnelle)
-MongoDB (pour les statistiques de consultation)
 HTML5, CSS3, JavaScript pour le frontend
 Git, GitHub pour le contrôle de version
 ClickUp pour la gestion de projet
