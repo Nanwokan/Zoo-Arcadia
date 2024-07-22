@@ -107,3 +107,4 @@ Nanwokan Ouattara
 Dépôt GitHub : https://github.com/Nanwokan/Zoo-Arcadia
 Application Déployée : [(https://zoo-arcadia-fgafzczp8-nanwokans-projects.vercel.app)](https://zoo-arcadia-2hj34516a-nanwokans-projects.vercel.app/)
 Gestion de Projet : [ClickUp](https://app.clickup.com/9015082414/v/s/90152702178)
+figma pour les maquettes: https://www.figma.com/design/VOipVjE67nAIbGmFt7TilU/ECF-ARCADIA?node-id=0-1&t=itCEUVxAHzYkpyHi-0
