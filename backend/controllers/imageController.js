@@ -3,7 +3,12 @@ const Image = require('../models/Image');
 exports.uploadImage = async (req, res) => {
     try {
         const image_data = req.file.buffer;
+<<<<<<< HEAD
         const newImage = await Image.create({ image_data });
+=======
+        const { habitat_id } = req.body;
+        const newImage = await Image.create({ image_data, habitat_id });
+>>>>>>> master
         res.status(201).json(newImage);
     } catch (error) {
         res.status(500).json({ error: error.message });

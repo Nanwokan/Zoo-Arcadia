@@ -13,7 +13,10 @@ let btn = document.querySelector('#btn')
     const formContainer = document.getElementById('formContainer');
     formContainer.classList.toggle('hidden');
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
 
 document.getElementById('filterSelect').addEventListener('change', function() {

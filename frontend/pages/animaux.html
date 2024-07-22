@@ -3,57 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nos Animaux - Jungle - Zoo Arcadia</title>
-    <link rel="stylesheet" href="../CSS/css h & f.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../CSS/css animal-list.css">
+    <title>Nos Animaux - Zoo Arcadia</title>
+    <link rel="stylesheet" href="../CSS/css ash.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Header visiteur -->
     <header>
         <div class="logo">
-            <img src="../source/img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+            <img src="../img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
         </div>
         <nav class="nav-visiteur">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="../index.html">Accueil</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="animaux.html">Animaux</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
         <div class="connexion">
-            <a href="connexion.html"><img src="connexion.png" alt="Connexion"></a>
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
         </div>
     </header>
-
+    <!-- Panneau coulissant du menu -->
+    <div id="menu-panel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="menu-panel-content">
+            <a href="../index.html">Accueil</a>
+            <a href="services.html">Services</a>
+            <a href="habitats.html">Habitats</a>
+            <a href="animaux.html">Animaux</a>
+            <a href="contact.html">Contact</a>
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </div>
     <main>
         <section id="animaux">
-            <div class="header-with-back-filter">
-                <a href="habitats.html"><i class="fas fa-arrow-left"></i></a>
-                <h1>Jungle Tropicale</h1>
-                <div class="filter">
-                    <h4>Trier par :
-                        <select id="sortBy" onchange="sortAnimals()">
-                            <option value="name">Trier par nom</option>
-                            <option value="habitat">Trier par habitat</option>
-                        </select>
-                    </h4>
-                </div>
-            </div>
-            <div class="search">
-                <input type="text" id="searchBar" placeholder="Rechercher par nom ou espèce..." onkeyup="filterAnimals()">
-            </div>
-            <div class="section">
             <div>
-                <h2>Nos animaux</h2>
-                <p>Découvrez les merveilleux résidents de notre zoo</p>
+                <h1>Nos animaux</h1>
+                <p>
+                    Plongez dans un monde de diversité naturelle où chaque habitat vous réserve une découverte unique.
+                    De la savane africaine à la jungle tropicale, chaque environnement abrite une variété d'animaux
+                    fascinants dans leur habitat naturel. Préparez-vous à une aventure immersive au cœur de la nature
+                    sauvage.</p>
             </div>
-            <div class="habitat">
-                <ul class="animals-grid" id="animalsList">
-                    <!-- Les animaux seront insérés ici par JavaScript -->
-                </ul>
+        </section><br>
+        <section class="filters">
+            <div>
+                <label for="filter-habitat">trier par habitats:</label>
+                <select id="filter-habitat">
+                    <option value="all">Tous</option>
+                    <!-- Options dynamiques -->
+                </select>
             </div>
-        </div>
+            <div>
+                <label for="filter-espece">trier par espèces:</label>
+                <select id="filter-espece">
+                    <option value="all">Tous</option>
+                    <!-- Options dynamiques -->
+                </select>
+            </div>
+        </section>
+
+        <section class="animal-grid">
+            <!-- Grille dynamique des animaux -->
         </section>
     </main>
 
@@ -97,7 +119,7 @@
         </div>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
-    
+    <script src="../js/document.js"></script>
     <script>
         async function fetchAnimals() {
             try {

@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestion des Animaux - Zoo Arcadia</title>
     <link rel="stylesheet" href="../CSS/Code CSS.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -16,7 +17,8 @@
             <i class="bx bx-menu" id="btn"></i>
         </div>
         <div class="user">
-            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me" class="user-img">
+            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me"
+                class="user-img">
             <div>
                 <p class="bold">Nanwokan O.</p>
                 <p>admin</p>
@@ -77,8 +79,27 @@
         </div>
         <div class="btn_topbar">
             <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
+<<<<<<< HEAD
             <i class="bx bxs-message-rounded-dots"></i>
             <i class="bx bxs-bell"></i>
+=======
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="admin_dashboard.html">Dashboard</a>
+            <a href="admin_accounts.html">Utilisateurs</a>
+            <a href="admin_services.html">Tâches</a>
+            <a href="admin_habitats.html">Habitats</a>
+            <a href="admin_animals.html">Animaux</a>
+            <a href="admin_reports.html">Rapports</a>
+            <a href="../index.html">Déconnexion</a>
+>>>>>>> master
         </div>
     </div>
     <!-- Contenu principal -->
@@ -96,7 +117,11 @@
                     <select id="selectRace" name="race_id" required>
                         <option value="" disabled selected>Choisissez une race</option>
                     </select>
+<<<<<<< HEAD
                     <input type="text" id="newRace" name="newRace" placeholder="Ajouter une nouvelle race si non existante">
+=======
+                    <button type="button" id="showRaceFormBtn">Ajouter une nouvelle race</button>
+>>>>>>> master
                     <input type="text" id="animal_firstname" name="prenom" placeholder="Prénom de l'animal" required>
                     <input type="file" id="animal_photos" name="animal_photos[]" multiple accept="image/*" required>
                     <textarea id="animal_status" name="etat" placeholder="État de l'animal" required></textarea>
@@ -104,17 +129,35 @@
                 <button type="submit">Ajouter</button>
             </form>
         </section>
-
+        <section id="raceFormContainer" class="hidden">
+            <form id="raceForm">
+                <div class="row-title-select">
+                    <h2>Ajouter une nouvelle race</h2>
+                </div>
+                <br>
+                <div class="inputs">
+                    <input type="text" id="race_name" name="label" placeholder="Nom de la race" required>
+                </div>
+                <button type="submit">Ajouter la Race</button>
+            </form>
+        </section>
         <section class="table">
             <h3>Liste des Animaux</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Prénom</th>
+<<<<<<< HEAD
                         <th>État</th>
                         <th>Habitat</th>
                         <th>Race</th>
                         <th>Photos</th>
+=======
+                        <th>Habitat</th>
+                        <th>Race</th>
+                        <th>État</th>
+                        <th>Images</th>
+>>>>>>> master
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -128,6 +171,7 @@
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
+<<<<<<< HEAD
 
     <!-- Scripts -->
     <script>
@@ -238,8 +282,211 @@
             }
 
             loadAnimals();
+=======
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
+
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
+        });
+
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuToggle = document.getElementById('menuToggle');
+            const menuPanel = document.querySelector('.sidebar');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    if (menuPanel.style.width === '250px') {
+                        menuPanel.style.width = '0';
+                    } else {
+                        menuPanel.style.width = '250px';
+                    }
+                });
+            }
+
+            const animalForm = document.getElementById('animalForm');
+            const raceForm = document.getElementById('raceForm');
+            const raceFormContainer = document.getElementById('raceFormContainer');
+            const showRaceFormBtn = document.getElementById('showRaceFormBtn');
+            const animalTableBody = document.getElementById('animalTableBody');
+            let animals = [];
+            let editingIndex = null;
+
+            if (showRaceFormBtn) {
+                showRaceFormBtn.addEventListener('click', function () {
+                    if (raceFormContainer) {
+                        raceFormContainer.classList.toggle('hidden');
+                    }
+                });
+            }
+
+            if (animalForm) {
+                animalForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    const formData = new FormData(animalForm);
+
+                    fetch('http://localhost:2004/api/animals', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        animals.push(data);
+                        displayAnimals();
+                        animalForm.reset();
+                        document.getElementById('formContainer').classList.add('hidden');
+                    })
+                    .catch(error => console.error('Erreur:', error));
+                });
+            }
+
+            if (raceForm) {
+                raceForm.addEventListener('submit', function (event) {
+                    event.preventDefault();
+
+                    const raceName = document.getElementById('race_name').value;
+
+                    fetch('http://localhost:2004/api/races', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ label: raceName })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const option = document.createElement('option');
+                        option.value = data.race_id;
+                        option.textContent = data.label;
+                        document.getElementById('selectRace').appendChild(option);
+                        raceForm.reset();
+                        raceFormContainer.classList.add('hidden');
+                    })
+                    .catch(error => console.error('Erreur:', error));
+                });
+            }
+
+            function displayAnimals() {
+                if (animalTableBody) {
+                    animalTableBody.innerHTML = '';
+                    animals.forEach((animal, index) => {
+                        const images = animal.images ? animal.images.map(image => `<img src="data:image/jpeg;base64,${btoa(String.fromCharCode(...new Uint8Array(image.image_data.data)))}" alt="Animal Image" width="100">`).join('') : 'Aucune image';
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${animal.prenom}</td>
+                            <td>${animal.habitat.nom}</td>
+                            <td>${animal.race.label}</td>
+                            <td>${animal.etat}</td>
+                            <td>${images}</td>
+                            <td>
+                                <button onclick="modifyAnimal(${index})">Modifier</button>
+                                <button onclick="deleteAnimal(${index})">Supprimer</button>
+                            </td>
+                        `;
+                        animalTableBody.appendChild(tr);
+                    });
+                }
+            }
+
+            window.modifyAnimal = function (index) {
+                const animal = animals[index];
+                document.getElementById('animal_firstname').value = animal.prenom;
+                document.getElementById('animal_status').value = animal.etat;
+                document.getElementById('selectHabitat').value = animal.habitat_id;
+                document.getElementById('selectRace').value = animal.race_id;
+                editingIndex = index;
+                document.getElementById('formContainer').classList.remove('hidden');
+            };
+
+            window.deleteAnimal = function (index) {
+                fetch(`http://localhost:2004/api/animals/${animals[index].animal_id}`, {
+                    method: 'DELETE'
+                })
+                .then(() => {
+                    animals.splice(index, 1);
+                    displayAnimals();
+                })
+                .catch(error => console.error('Erreur:', error));
+            };
+
+            function loadAnimals() {
+                fetch('http://localhost:2004/api/animals')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors du chargement des animaux');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    animals = data;
+                    displayAnimals();
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Une erreur est survenue lors du chargement des animaux');
+                });
+            }
+
+            function loadHabitats() {
+                fetch('http://localhost:2004/api/habitats')
+                .then(response => response.json())
+                .then(data => {
+                    const selectHabitat = document.getElementById('selectHabitat');
+                    if (selectHabitat) {
+                        data.forEach(habitat => {
+                            const option = document.createElement('option');
+                            option.value = habitat.habitat_id;
+                            option.textContent = habitat.nom;
+                            selectHabitat.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Erreur:', error));
+            }
+
+            function loadRaces() {
+                fetch('http://localhost:2004/api/races')
+                .then(response => response.json())
+                .then(data => {
+                    const selectRace = document.getElementById('selectRace');
+                    if (selectRace) {
+                        data.forEach(race => {
+                            const option = document.createElement('option');
+                            option.value = race.race_id;
+                            option.textContent = race.label;
+                            selectRace.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Erreur:', error));
+            }
+
+            loadAnimals();
+            loadHabitats();
+            loadRaces();
+>>>>>>> master
         });
     </script>
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> master

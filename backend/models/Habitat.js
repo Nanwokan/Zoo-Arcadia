@@ -9,11 +9,19 @@ const Habitat = sequelize.define('Habitat', {
     },
     nom: {
         type: DataTypes.STRING(50),
+<<<<<<< HEAD
         allowNull: true
     },
     description: {
         type: DataTypes.STRING(500),
         allowNull: true
+=======
+        allowNull: false
+    },
+    description: {
+        type: DataTypes.STRING(255),
+        allowNull: false
+>>>>>>> master
     }
 }, {
     tableName: 'habitat',

@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Habitats - Zoo Arcadia</title>
-    <link rel="stylesheet" href="../CSS/css h & f.css">
     <link rel="stylesheet" href="../CSS/css ash.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap"
+        rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
 
@@ -22,6 +22,7 @@
                 <li><a href="../index.html">Accueil</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="animaux.html">Animaux</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -30,28 +31,48 @@
                 <i class="bx bx-user-circle"></i>
             </a>
         </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
     </header>
+    <!-- Panneau coulissant du menu -->
+    <div id="menu-panel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="menu-panel-content">
+            <a href="../index.html">Accueil</a>
+            <a href="services.html">Services</a>
+            <a href="habitats.html">Habitats</a>
+            <a href="animaux.html">Animaux</a>
+            <a href="contact.html">Contact</a>
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </div>
     <!-- Contenu de la page des habitats -->
     <main>
         <section id="habitats">
             <div>
                 <h1>Découvrez nos habitats</h1>
                 <p>
-                    Plongez dans un monde de diversité naturelle où chaque habitat vous réserve une découverte unique.
+                    Plongez dans un monde de diversité naturelle où chaque habitat vous réserve une découverte
+                    unique.
                     De la savane africaine à la jungle tropicale, chaque environnement abrite une variété d'animaux
-                    fascinants dans leur habitat naturel. Préparez-vous à une aventure immersive au cœur de la nature
+                    fascinants dans leur habitat naturel. Préparez-vous à une aventure immersive au cœur de la
+                    nature
                     sauvage.</p>
             </div>
         </section><br>
         <section class="hab-present section1">
-            <div class="present-list hab-present-list">
+            <div class="present-list hab-present-list" id="habitatList">
                 <div class="list-card">
                     <img src="../img/sectionimg/1.png" class="card-img-top" alt="Savane">
                     <div class="card-body">
                         <h3 class="card-title">Savane Africaine</h3>
-                        <p class="card-text">Découvrez nos animaux de la savane, notamment les lions, les zèbres... 
+                        <p class="card-text">Découvrez nos animaux de la savane, notamment les lions, les zèbres...
                         </p>
                     </div>
+<<<<<<< HEAD
                     <a href="animaux_savane.html"><i class="bx bxs-chevrons-right"></i></a>
                 </div>
                 <div class="list-card">
@@ -72,6 +93,8 @@
                             tortues.</p>
                     </div>
                     <a href="animaux_marais.html"><i class="bx bxs-chevrons-right"></i></a>
+=======
+>>>>>>> master
                 </div>
             </div>
         </section>
@@ -117,24 +140,27 @@
         </div>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
-
+    <script src="../js/document.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            fetch('http://localhost:3000/api/habitats')
+            const habitatList = document.getElementById('habitatList');
+
+            fetch('http://localhost:2004/api/habitats')
                 .then(response => response.json())
                 .then(data => {
-                    const habitatList = document.getElementById('habitat-list');
                     data.forEach(habitat => {
-                        const div = document.createElement('div');
-                        div.classList.add('habitat-item');
-                        div.innerHTML = `
-                            <h2>${habitat.nom}</h2>
-                            <p>${habitat.description}</p>
-                            <a href="animaux_${habitat.nom.toLowerCase()}.html" class="lien-suite">Découvrir</a>
+                        const habitatCard = document.createElement('div');
+                        habitatCard.className = 'list-card';
+                        habitatCard.innerHTML = `
+                            <div class="card-body">
+                                <h3 class="card-title">${habitat.nom}</h3>
+                                <p class="card-text">${habitat.description}</p>
+                            </div>
                         `;
-                        habitatList.appendChild(div);
+                        habitatList.appendChild(habitatCard);
                     });
-                });
+                })
+                .catch(error => console.error('Erreur:', error));
         });
     </script>
 

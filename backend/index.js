@@ -5,6 +5,10 @@ const dotenv = require('dotenv');
 const cors = require('cors');
 const morgan = require('morgan');
 const routes = require('./routes');
+<<<<<<< HEAD
+=======
+const sequelize = require('./config/db'); // Importez sequelize directement depuis config/db
+>>>>>>> master
 
 dotenv.config();
 
@@ -17,7 +21,10 @@ app.use(morgan('combined'));
 
 app.use('/api', routes);
 
+<<<<<<< HEAD
 const sequelize = require('./config/db');
+=======
+>>>>>>> master
 sequelize.sync()
   .then(() => {
     console.log('Database connected and synchronized');

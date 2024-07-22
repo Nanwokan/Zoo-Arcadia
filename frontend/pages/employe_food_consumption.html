@@ -62,8 +62,19 @@
         </div>
         <div class="btn_topbar">
             <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
-            <i class="bx bxs-message-rounded-dots"></i>
-            <i class="bx bxs-bell"></i>
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="employe_validate_reviews.html">Accueil</a>
+            <a href="employe_modify_services.html">Services</a>
+            <a href="employe_food_consumption.html">Animaux</a>
+            <a href="../index.html">Déconnexion</a>
         </div>
     </div>
     <!-- Contenu principal -->
@@ -120,6 +131,29 @@
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
     <script src="../js/script.js"></script>
+<<<<<<< HEAD
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
+
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
+        });
+
+    </script>
+>>>>>>> master
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const foodConsumption = [];

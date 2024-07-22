@@ -25,14 +25,22 @@
         </div>
         <ul>
             <li>
+<<<<<<< HEAD
                 <a href="#">
+=======
+                <a href="veterinaire_reports.html">
+>>>>>>> master
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Accueil</span>
                 </a>
             </li>
             <li>
                 <a href="veterinaire_habitats.html">
+<<<<<<< HEAD
                     <i class="bx bx-task"></i>
+=======
+                    <i class="bx bxs-building-house"></i>
+>>>>>>> master
                     <span class="nav-items">Habitats</span>
                 </a>
             </li>
@@ -42,13 +50,17 @@
                     <span class="nav-items">Animaux</span>
                 </a>
             </li>
+            
             <li>
+<<<<<<< HEAD
                 <a href="veterinaire_reports.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Rapports</span>
                 </a>
             </li>
             <li>
+=======
+>>>>>>> master
                 <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
@@ -67,8 +79,24 @@
         </div>
         <div class="btn_topbar">
             <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
+<<<<<<< HEAD
             <i class="bx bxs-message-rounded-dots"></i>
             <i class="bx bxs-bell"></i>
+=======
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="veterinaire_reports.html">Accueil</a>
+            <a href="veterinaire_habitats.html">Habitats</a>
+            <a href="veterinaire_animals.html">Animaux</a>
+            <a href="../index.html">Déconnexion</a>
+>>>>>>> master
         </div>
     </div>
     <!-- Contenu principal -->
@@ -124,5 +152,28 @@
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
     <script src="../js/script.js"></script>
+<<<<<<< HEAD
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
+
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
+        });
+
+    </script>
+>>>>>>> master
 </body>
 </html>

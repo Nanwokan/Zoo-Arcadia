@@ -52,6 +52,7 @@
                 </a>
             </li>
         </ul>
+
     </aside>
     <div class="topbar">
         <div class="logo">
@@ -62,8 +63,25 @@
             <button id="searchBtn"><i class="bx bx-search-alt"></i></button>
         </div>
         <div class="btn_topbar">
+<<<<<<< HEAD
             <i class="bx bxs-message-rounded-dots"></i>
             <i class="bx bxs-bell"></i>
+=======
+            <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="employe_validate_reviews.html">Accueil</a>
+            <a href="employe_modify_services.html">Services</a>
+            <a href="employe_food_consumption.html">Animaux</a>
+            <a href="../index.html">Déconnexion</a>
+>>>>>>> master
         </div>
     </div>
     <!-- Contenu principal -->
@@ -81,8 +99,7 @@
                 <button type="submit">Modifier</button>
             </form>
         </section>
-        <div class="cards">
-            <section id="tableSection">
+            <section id="tableSection" class="table">
                 <h3>Services</h3>
                 <table>
                     <thead>
@@ -97,6 +114,7 @@
                     </tbody>
                 </table>
             </section>
+<<<<<<< HEAD
             <section>
                 <div class="headsection">
                     <h3>Planning</h3>
@@ -127,11 +145,42 @@
                 </table>
             </section>
         </div>
+=======
+
+>>>>>>> master
     </main>
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
     <script src="../js/script.js"></script>
+    <script>
+<<<<<<< HEAD
+        document.addEventListener('DOMContentLoaded', function () {
+            const editServiceForm = document.getElementById('editServiceForm');
+            const serviceTableBody = document.getElementById('serviceTableBody');
+            const editFormContainer = document.getElementById('editFormContainer');
+            let services = [];
+
+=======
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
+
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
+        });
+
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const editServiceForm = document.getElementById('editServiceForm');
@@ -139,6 +188,7 @@
             const editFormContainer = document.getElementById('editFormContainer');
             let services = [];
 
+>>>>>>> master
             function loadServices() {
                 return fetch('http://localhost:2004/api/services')
                     .then(response => response.json())

@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Zoo Arcadia</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="CSS/css h & f.css">
+=======
+>>>>>>> master
     <link rel="stylesheet" href="CSS/css ash.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
-
 <body>
     <!-- Header visiteur -->
     <header>
@@ -22,6 +23,10 @@
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="pages/services.html">Services</a></li>
                 <li><a href="pages/habitats.html">Habitats</a></li>
+<<<<<<< HEAD
+=======
+                <li><a href="pages/animaux.html">Animaux</a></li>
+>>>>>>> master
                 <li><a href="pages/contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -30,7 +35,26 @@
                 <i class="bx bx-user-circle"></i>
             </a>
         </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
     </header>
+
+    <!-- Panneau coulissant du menu -->
+    <div id="menu-panel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="menu-panel-content">
+            <a href="index.html">Accueil</a>
+            <a href="pages/services.html">Services</a>
+            <a href="pages/habitats.html">Habitats</a>
+            <a href="pages/animaux.html">Animaux</a>
+            <a href="pages/contact.html">Contact</a>
+            <a href="pages/connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </div>
+
     <!-- Contenu de la page d'accueil -->
     <section class="main">
         <video autoplay muted loop id="background-video">
@@ -41,6 +65,7 @@
         <!-- Section des habitats -->
         <section class="hab-present section1">
             <h2>Nos Habitats</h2>
+<<<<<<< HEAD
             <div class="present-list hab-present-list">
                 <div class="list-card">
                     <img src="img/sectionimg/1.png" class="card-img-top" alt="Savane">
@@ -63,12 +88,17 @@
                         <p class="card-text">Venez observer les animaux des marais, tels que les crocodiles et les tortues.</p>
                     </div>
                 </div>
+=======
+            <div class="present-list hab-present-list" id="habitatList">
+               
+>>>>>>> master
             </div>
         </section>
 
         <!-- Section des Services -->
         <section class="serv-present section2">
             <h2>Nos Services</h2>
+<<<<<<< HEAD
             <div class="present-list serv-present-list">
                 <div class="list-card">
                     <img src="img/sectionimg/4.png" class="card-img-top" alt="restauration">
@@ -91,11 +121,15 @@
                         <p class="card-text">Explorez le zoo à bord de notre petit train pour une expérience unique.</p>
                     </div>
                 </div>
+=======
+            <div class="present-list serv-present-list" id="serviceList">
+                 <!-- Les cartes seront générées dynamiquement ici --> 
+>>>>>>> master
             </div>
         </section>
         <section class="avis">
             <div id="reviewsContainer">
-                <h2>Ce Que Nos Visiteurs Disent...</h2>
+                <h2>Commentaires</h2>
                 <!-- Les avis validés seront affichés ici -->
             </div>
             <div class="review-form">
@@ -164,6 +198,50 @@
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
     <!-- Scripts -->
+    <script src="js/document.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const serviceList = document.getElementById('serviceList');
+
+            fetch('http://localhost:2004/api/services')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(service => {
+                        const serviceCard = document.createElement('div');
+                        serviceCard.className = 'list-card';
+                        serviceCard.innerHTML = `
+                            <div class="card-body">
+                                <h3 class="card-title">${service.nom}</h3>
+                                <p class="card-text">${service.description}</p>
+                            </div>
+                        `;
+                        serviceList.appendChild(serviceCard);
+                    });
+                })
+                .catch(error => console.error('Erreur:', error));
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const habitatList = document.getElementById('habitatList');
+
+            fetch('http://localhost:2004/api/habitats')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(habitat => {
+                        const habitatCard = document.createElement('div');
+                        habitatCard.className = 'list-card';
+                        habitatCard.innerHTML = `
+                            <div class="card-body">
+                                <h3 class="card-title">${habitat.nom}</h3>
+                                <p class="card-text">${habitat.description}</p>
+                            </div>
+                        `;
+                        habitatList.appendChild(habitatCard);
+                    });
+                })
+                .catch(error => console.error('Erreur:', error));
+        });
+    </script>
     <script>
         document.getElementById('reviewForm').addEventListener('submit', function(event) {
             event.preventDefault();

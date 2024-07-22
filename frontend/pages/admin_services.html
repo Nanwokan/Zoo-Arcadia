@@ -21,6 +21,7 @@
             </div>
         </div>
         <ul>
+<<<<<<< HEAD
             <li>
                 <a href="admin_dashboard.html">
                     <i class="bx bxs-dashboard"></i>
@@ -69,14 +70,41 @@
         <div class="logo">
             <img src="../img/logo/logo sans fond.png" alt="">
         </div>
+=======
+            <li><a href="admin_dashboard.html"><i class="bx bxs-dashboard"></i><span class="nav-items">Dashboard</span></a></li>
+            <li><a href="admin_accounts.html"><i class="bx bxs-user-account"></i><span class="nav-items">Comptes</span></a></li>
+            <li><a href="admin_services.html"><i class="bx bx-task"></i><span class="nav-items">Services</span></a></li>
+            <li><a href="admin_habitats.html"><i class="bx bxs-building-house"></i><span class="nav-items">Habitats</span></a></li>
+            <li><a href="admin_animals.html"><i class="bx bxs-dog"></i><span class="nav-items">Animaux</span></a></li>
+            <li><a href="admin_reports.html"><i class="bx bxs-first-aid"></i><span class="nav-items">Consultations</span></a></li>
+            <li><a href="../index.html"><i class="bx bx-log-out"></i><span class="nav-items">Déconnexion</span></a></li>
+        </ul>
+    </aside>
+    <div class="topbar">
+        <div class="logo"><img src="../img/logo/logo sans fond.png" alt=""></div>
+>>>>>>> master
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Rechercher...">
             <button id="searchBtn"><i class="bx bx-search-alt"></i></button>
         </div>
         <div class="btn_topbar">
             <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
-            <i class="bx bxs-message-rounded-dots"></i>
-            <i class="bx bxs-bell"></i>
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="admin_dashboard.html">Dashboard</a>
+            <a href="admin_accounts.html">Utilisateurs</a>
+            <a href="admin_services.html">Tâches</a>
+            <a href="admin_habitats.html">Habitats</a>
+            <a href="admin_animals.html">Animaux</a>
+            <a href="admin_reports.html">Rapports</a>
+            <a href="../index.html">Déconnexion</a>
         </div>
     </div>
     <!-- Contenu principal -->
@@ -105,9 +133,14 @@
                 </div>
                 <button type="submit">Modifier</button>
             </form>
+<<<<<<< HEAD
         </section>        
         <div class="cards">
             <section id="tableSection">
+=======
+        </section>
+            <section class="table">
+>>>>>>> master
                 <h3>Services</h3>
                 <table>
                     <thead>
@@ -122,42 +155,35 @@
                     </tbody>
                 </table>
             </section>
-            <section>
-                <div class="headsection">
-                    <h3>Planning</h3>
-                    <i class="bx bx-plus" id="OnclickTaskBtn"></i>
-                </div>
-                <table id="myTable">
-                    <thead>
-                        <tr>
-                            <th>Employés</th>
-                            <th>Tâches</th>
-                            <th class="filter-container">
-                                <select id="filterSelect">
-                                    <option value="all">Etat</option>
-                                    <option value="Fait">Fait</option>
-                                    <option value="A faire">A faire</option>
-                                </select>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Remplissez ce tableau dynamiquement avec les tâches ajoutées -->
-                        <tr>
-                            <td>Jean Dupont</td>
-                            <td>Vérification et entretien quotidien de l'enclos des lions pour assurer la sécurité</td>
-                            <td>Fait</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
     </main>
     <!-- Footer -->
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
     <script src="../js/script.js"></script>
+<<<<<<< HEAD
+=======
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
+
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
+        });
+
+    </script>
+>>>>>>> master
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const serviceForm = document.getElementById('serviceForm');

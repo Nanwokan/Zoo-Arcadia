@@ -5,7 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - Zoo Arcadia</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="../CSS/css h & f.css">
+=======
+    <link rel="stylesheet" href="../css/css ash.css">
+>>>>>>> master
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -27,6 +31,7 @@
                 <li><a href="../index.html">Accueil</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="animaux.html">Animaux</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -35,7 +40,27 @@
                 <i class="bx bx-user-circle"></i>
             </a>
         </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
     </header>
+<<<<<<< HEAD
+=======
+    <!-- Panneau coulissant du menu -->
+    <div id="menu-panel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="menu-panel-content">
+            <a href="../index.html">Accueil</a>
+            <a href="services.html">Services</a>
+            <a href="habitats.html">Habitats</a>
+            <a href="animaux.html">Animaux</a>
+            <a href="contact.html">Contact</a>
+            <a href="connexion.html">
+                <i class="bx bx-user-circle"></i>
+            </a>
+        </div>
+    </div>
+>>>>>>> master
     <main>
         <section class="form_connexion">
             <form id="loginForm">
@@ -86,6 +111,7 @@
         </div>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
+    <script src="../js/document.js"></script>
     <script>
         document.getElementById('loginForm').addEventListener('submit', async (event) => {
             event.preventDefault();
