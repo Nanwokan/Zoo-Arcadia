@@ -1,43 +1,67 @@
-const db = require('../config/db');
+const Animal = require('../models/Animal');
+const Image = require('../models/Image');
+const Race = require('../models/Race');
+const Habitat = require('../models/Habitat');
+const Dispose = require('../models/Dispose');
+const Detient = require('../models/Detient');
 
-exports.getAllAnimals = (req, res) => {
-    const sql = 'SELECT * FROM animals';
-    db.query(sql, (err, results) => {
-        if (err) throw err;
-        res.json(results);
-    });
+exports.getAnimals = async (req, res) => {
+    try {
+        const animals = await Animal.findAll({
+            include: [
+                { model: Image, as: 'Images' },
+                { model: Race, through: Dispose },
+                { model: Habitat, through: Detient }
+            ]
+        });
+        res.status(200).json(animals);
+    } catch (error) {
+        console.error('Erreur lors de la récupération des animaux:', error);
+        res.status(500).json({ error: error.message });
+    }
 };
 
-exports.addAnimal = (req, res) => {
-    const newAnimal = req.body;
-    const sql = 'INSERT INTO animals SET ?';
-    db.query(sql, newAnimal, (err, result) => {
-        if (err) throw err;
-        res.json(result);
-    });
+
+exports.createAnimal = async (req, res) => {
+    try {
+        console.log('Tentative de création d\'un nouvel animal');
+        const { prenom, etat, habitat_id, race_id } = req.body;
+        const newAnimal = await Animal.create({ prenom, etat });
+
+        if (req.files && req.files.length > 0) {
+            for (const file of req.files) {
+                await Image.create({
+                    image_data: file.buffer,
+                    animal_id: newAnimal.animal_id
+                });
+            }
+        }
+
+        await Dispose.create({ animal_id: newAnimal.animal_id, race_id });
+        await Detient.create({ animal_id: newAnimal.animal_id, habitat_id });
+
+        res.status(201).json(newAnimal);
+    } catch (error) {
+        console.error('Erreur lors de la création de l\'animal:', error);
+        res.status(500).json({ error: error.message });
+    }
 };
 
-exports.getAnimalById = (req, res) => {
-    const sql = 'SELECT * FROM animals WHERE id = ?';
-    db.query(sql, [req.params.id], (err, result) => {
-        if (err) throw err;
-        res.json(result);
-    });
-};
 
-exports.updateAnimal = (req, res) => {
-    const updatedAnimal = req.body;
-    const sql = 'UPDATE animals SET ? WHERE id = ?';
-    db.query(sql, [updatedAnimal, req.params.id], (err, result) => {
-        if (err) throw err;
-        res.json(result);
+// Mettre à jour un animal
+exports.updateAnimal = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [updated] = await Animal.update(req.body, {
+      where: { animal_id: id }
     });
-};
-
-exports.deleteAnimal = (req, res) => {
-    const sql = 'DELETE FROM animals WHERE id = ?';
-    db.query(sql, [req.params.id], (err, result) => {
-        if (err) throw err;
-        res.json(result);
-    });
+    if (updated) {
+      const updatedAnimal = await Animal.findOne({ where: { animal_id: id } });
+      res.status(200).json(updatedAnimal);
+    } else {
+      throw new Error('Animal non trouvé');
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Une erreur est survenue lors de la mise à jour de l\'animal.' });
+  }
 };

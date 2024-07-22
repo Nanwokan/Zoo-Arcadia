@@ -7,7 +7,7 @@
     <title>Gestion des services - Zoo Arcadia</title>
     <link rel="stylesheet" href="../CSS/Code CSS.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
@@ -19,7 +19,8 @@
             <i class="bx bx-menu" id="btn"></i>
         </div> <br>
         <div class="user">
-            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me" class="user-img">
+            <img src="https://i.pinimg.com/originals/c9/7f/19/c97f192ccdd90a5ce6becfcef22d3b70.jpg" alt="me"
+                class="user-img">
             <div>
                 <p class="bold">Nanwokan O.</p>
                 <p>admin</p>
@@ -27,34 +28,35 @@
         </div>
         <ul>
             <li>
-                <a href="../Pages HTML/employe_validate_reviews.html">
+                <a href="employe_validate_reviews.html">
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Accueil</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/employe_modify_services.html">
+                <a href="employe_modify_services.html">
                     <i class="bx bx-task"></i>
                     <span class="nav-items">Services</span>
                 </a>
             </li>
             <li>
-                <a href="../Pages HTML/employe_food_consumption.html">
+                <a href="employe_food_consumption.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Animaux</span>
                 </a>
             </li>
             <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
                 </a>
             </li>
         </ul>
+
     </aside>
     <div class="topbar">
         <div class="logo">
-            <img src="../source/img/logo/logo sans fond.png" alt="">
+            <img src="../img/logo/logo sans fond.png" alt="">
         </div>
         <div class="search-container">
             <input type="text" id="searchBar" placeholder="Rechercher...">
@@ -62,214 +64,142 @@
         </div>
         <div class="btn_topbar">
             <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
-            <i class="bx bxs-message-rounded-dots"></i>
-            <i class="bx bxs-bell"></i>
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="employe_validate_reviews.html">Accueil</a>
+            <a href="employe_modify_services.html">Services</a>
+            <a href="employe_food_consumption.html">Animaux</a>
+            <a href="../index.html">Déconnexion</a>
         </div>
     </div>
     <!-- Contenu principal -->
     <main class="main-content">
-        <section id="formContainer" class="hidden">
-            <form id="userForm">
+        <section id="editFormContainer" class="hidden">
+            <form id="editServiceForm">
                 <div class="row-title-select">
                     <h2>Modifier un service</h2>
-                    <select id="service_day" name="service_day" required>
-                        <option value="" disabled selected>Jour</option>
-                        <option value="Lundi">Lundi</option>
-                        <option value="Mardi">Mardi</option>
-                        <option value="Mercredi">Mercredi</option>
-                        <option value="Jeudi">Jeudi</option>
-                        <option value="Vendredi">Vendredi</option>
-                        <option value="Samedi">Samedi</option>
-                        <option value="Dimanche">Dimanche</option>
-                    </select>
                 </div>
                 <div class="inputs">
-                    <input type="text" id="service_name" name="service_name" placeholder="Nom" required>
-                    <input type="text" id="service_description" name="service_description" placeholder="Description" required>
-                    <label for="opening_time">Heure d'ouverture</label>
-                    <input type="time" id="opening_time" name="opening_time" required>
-                    <label for="closing_time">Heure de fermeture</label>
-                    <input type="time" id="closing_time" name="closing_time" required>
+                    <input type="hidden" id="edit_service_id" name="service_id">
+                    <input type="text" id="edit_service_name" name="nom" placeholder="Nom" required>
+                    <input type="text" id="edit_service_description" name="description" placeholder="Description" required>
                 </div>
-                <button type="submit">Sauvegarder</button>
+                <button type="submit">Modifier</button>
             </form>
         </section>
-        <div class="cards">
-            <section id="tableSection">
+            <section id="tableSection" class="table">
                 <h3>Services</h3>
                 <table>
                     <thead>
                         <tr>
                             <th>Services</th>
-                            <th>Horaires</th>
+                            <th>Descriptions</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
-                    <tbody id="servicesTableBody">
-                        <!-- Remplissez ce tableau dynamiquement avec les services -->
+                    <tbody id="serviceTableBody">
+                        <!-- Remplissez ce tableau dynamiquement avec les services ajoutés -->
                     </tbody>
                 </table>
             </section>
-            <section>
-                <div class="headsection">
-                    <h3>Planning</h3>
-                    <div class="filter-container">
-                        <select id="employeeFilter">
-                            <option value="all">Tous les employés</option>
-                            <!-- Options des employés seront ajoutées dynamiquement -->
-                        </select>
-                    </div>
-                </div>
-                <table id="myTable">
-                    <thead>
-                        <tr>
-                            <th>Employés</th>
-                            <th>Tâches</th>
-                            <th class="filter-container">
-                                <select id="filterSelect">
-                                    <option value="all">Etat</option>
-                                    <option value="Fait">Fait</option>
-                                    <option value="A faire">A faire</option>
-                                </select>
-                            </th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tasksTableBody">
-                        <!-- Remplissez ce tableau dynamiquement avec les tâches -->
-                    </tbody>
-                </table>
-            </section>
-        </div>
+
     </main>
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
-    <script src="../javascript/script.js"></script>
+    <script src="../js/script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-    const services = [
-        { id: 1, name: 'Restauration', description: 'Service de restauration', day: 'Lundi', opening: '08:00', closing: '15:00' },
-        { id: 2, name: 'Visite guidée', description: 'Visite guidée des habitats', day: 'Mardi', opening: '09:00', closing: '16:00' }
-    ];
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
 
-    const tasks = [
-        { id: 1, employee: 'Jean Dupont', task: 'Vérification et entretien quotidien de l\'enclos des lions', status: 'A faire' },
-        { id: 2, employee: 'Marie Curie', task: 'Nourrir les éléphants', status: 'Fait' }
-    ];
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
 
-    const servicesTableBody = document.getElementById('servicesTableBody');
-    const tasksTableBody = document.getElementById('tasksTableBody');
-    const formContainer = document.getElementById('formContainer');
-    const userForm = document.getElementById('userForm');
-    const employeeFilter = document.getElementById('employeeFilter');
-    const filterSelect = document.getElementById('filterSelect');
-    let currentEditServiceId = null;
-
-    function displayServices() {
-        servicesTableBody.innerHTML = '';
-        services.forEach(service => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${service.name}</td>
-                <td>${service.day} ${service.opening} - ${service.closing}</td>
-                <td>
-                    <button onclick="editService(${service.id})">Modifier</button>
-                    <button onclick="deleteService(${service.id})">Supprimer</button>
-                </td>
-            `;
-            servicesTableBody.appendChild(tr);
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
         });
-    }
 
-    function displayTasks() {
-        tasksTableBody.innerHTML = '';
-        tasks.forEach(task => {
-            if (employeeFilter.value === 'all' || task.employee === employeeFilter.value) {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${task.employee}</td>
-                    <td>${task.task}</td>
-                    <td>${task.status}</td>
-                    <td>
-                        <button onclick="markTaskAsDone(${task.id})">Marquer comme fait</button>
-                    </td>
-                `;
-                tasksTableBody.appendChild(tr);
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const editServiceForm = document.getElementById('editServiceForm');
+            const serviceTableBody = document.getElementById('serviceTableBody');
+            const editFormContainer = document.getElementById('editFormContainer');
+            let services = [];
+
+            function loadServices() {
+                return fetch('http://localhost:2004/api/services')
+                    .then(response => response.json())
+                    .then(data => {
+                        services = data;
+                        serviceTableBody.innerHTML = '';
+                        services.forEach(service => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${service.nom}</td>
+                                <td>${service.description}</td>
+                                <td>
+                                    <button onclick="showEditForm(${service.service_id})">Modifier</button>
+                                </td>
+                            `;
+                            serviceTableBody.appendChild(row);
+                        });
+                    })
+                    .catch(error => console.error('Erreur:', error));
             }
+
+            editServiceForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const service_id = document.getElementById('edit_service_id').value;
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+
+                fetch(`http://localhost:2004/api/services/${service_id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Service modifié:', data);
+                        editServiceForm.reset();
+                        editFormContainer.classList.add('hidden');
+                        loadServices();
+                    })
+                    .catch(error => console.error('Erreur:', error));
+            });
+
+            window.showEditForm = function (service_id) {
+                const service = services.find(s => s.service_id === service_id);
+                if (service) {
+                    document.getElementById('edit_service_id').value = service.service_id;
+                    document.getElementById('edit_service_name').value = service.nom;
+                    document.getElementById('edit_service_description').value = service.description;
+
+                    editFormContainer.classList.remove('hidden');
+                }
+            };
+
+            loadServices();
         });
-    }
-
-    function populateEmployeeFilter() {
-        const employees = [...new Set(tasks.map(task => task.employee))];
-        employees.forEach(employee => {
-            const option = document.createElement('option');
-            option.value = employee;
-            option.textContent = employee;
-            employeeFilter.appendChild(option);
-        });
-    }
-
-    window.editService = function(id) {
-        const service = services.find(s => s.id === id);
-        if (service) {
-            document.getElementById('service_day').value = service.day;
-            document.getElementById('service_name').value = service.name;
-            document.getElementById('service_description').value = service.description;
-            document.getElementById('opening_time').value = service.opening;
-            document.getElementById('closing_time').value = service.closing;
-            currentEditServiceId = id;
-            formContainer.classList.remove('hidden');
-        }
-    };
-
-    window.deleteService = function(id) {
-        const index = services.findIndex(s => s.id === id);
-        if (index !== -1) {
-            services.splice(index, 1);
-            displayServices();
-        }
-    };
-
-    window.markTaskAsDone = function(id) {
-        const task = tasks.find(t => t.id === id);
-        if (task) {
-            task.status = 'Fait';
-            displayTasks();
-        }
-    };
-
-    userForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        const serviceDay = document.getElementById('service_day').value;
-        const serviceName = document.getElementById('service_name').value;
-        const serviceDescription = document.getElementById('service_description').value;
-        const openingTime = document.getElementById('opening_time').value;
-        const closingTime = document.getElementById('closing_time').value;
-
-        if (currentEditServiceId) {
-            const service = services.find(s => s.id === currentEditServiceId);
-            if (service) {
-                service.day = serviceDay;
-                service.name = serviceName;
-                service.description = serviceDescription;
-                service.opening = openingTime;
-                service.closing = closingTime;
-            }
-        }
-        currentEditServiceId = null;
-        formContainer.classList.add('hidden');
-        displayServices();
-    });
-
-    employeeFilter.addEventListener('change', displayTasks);
-    filterSelect.addEventListener('change', displayTasks);
-
-    displayServices();
-    displayTasks();
-    populateEmployeeFilter();
-});
-
     </script>
 </body>
 

@@ -25,43 +25,58 @@
         </div>
         <ul>
             <li>
-                <a href="../Pages HTML/employe_validate_reviews.html">
+                <a href="veterinaire_reports.html">
                     <i class="bx bxs-dashboard"></i>
                     <span class="nav-items">Accueil</span>
                 </a>
-                <span class="tooltip">Tableau de Bord</span>
             </li>
             <li>
-                <a href="../Pages HTML/veterinaire_habitats.html">
-                    <i class="bx bx-task"></i>
+                <a href="veterinaire_habitats.html">
+                    <i class="bx bxs-building-house"></i>
                     <span class="nav-items">Habitats</span>
                 </a>
-                <span class="tooltip">Habitats</span>
             </li>
             <li>
-                <a href="../Pages HTML/veterinaire_animals.html">
+                <a href="veterinaire_animals.html">
                     <i class="bx bxs-dog"></i>
                     <span class="nav-items">Animaux</span>
                 </a>
-                <span class="tooltip">Animaux</span>
             </li>
+            
             <li>
-                <a href="../Pages HTML/veterinaire_reports.html">
-                    <i class="bx bxs-dog"></i>
-                    <span class="nav-items">Rapports</span>
-                </a>
-                <span class="tooltip">Rapports</span>
-            </li>
-            <li>
-                <a href="index.html">
+                <a href="../index.html">
                     <i class="bx bx-log-out"></i>
                     <span class="nav-items">Déconnexion</span>
                 </a>
-                <span class="tooltip">Déconnexion</span>
             </li>
         </ul>
         
     </aside>
+    <div class="topbar">
+        <div class="logo">
+            <img src="../img/logo/logo sans fond.png" alt="">
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchBar" placeholder="Rechercher...">
+            <button id="searchBtn"><i class="bx bx-search-alt"></i></button>
+        </div>
+        <div class="btn_topbar">
+            <i class="bx bx-plus-circle" id="toggleFormBtn"></i>
+        </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
+    </div>
+    <!-- Menu Panneau Coulissant -->
+    <div id="menuPanel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn">&times;</a>
+        <div class="menu-panel-content">
+            <a href="veterinaire_reports.html">Accueil</a>
+            <a href="veterinaire_habitats.html">Habitats</a>
+            <a href="veterinaire_animals.html">Animaux</a>
+            <a href="../index.html">Déconnexion</a>
+        </div>
+    </div>
     <!-- Contenu principal -->
     <main class="main-content">
         <section>
@@ -114,5 +129,26 @@
     <footer>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const menuPanel = document.getElementById('menuPanel');
+            const closeBtn = document.querySelector('.closebtn');
+
+            menuToggle.addEventListener('click', () => {
+                if (menuPanel.style.width === '250px') {
+                    menuPanel.style.width = '0';
+                } else {
+                    menuPanel.style.width = '250px';
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                menuPanel.style.width = '0';
+            });
+        });
+
+    </script>
 </body>
 </html>

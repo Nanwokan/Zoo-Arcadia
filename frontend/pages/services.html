@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Zoo Arcadia</title>
-    <link rel="stylesheet" href="../CSS/css h & f.css">
     <link rel="stylesheet" href="../CSS/css ash.css">
     <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
@@ -13,13 +12,14 @@
     <!-- Header visiteur -->
     <header>
         <div class="logo">
-            <img src="../source/img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
+            <img src="../img/logo/logo sans fond.png" alt="Logo du zoo Arcadia">
         </div>
         <nav class="nav-visiteur">
             <ul>
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="../index.html">Accueil</a></li>
                 <li><a href="services.html">Services</a></li>
                 <li><a href="habitats.html">Habitats</a></li>
+                <li><a href="animaux.html">Animaux</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
@@ -28,7 +28,23 @@
                 <i class="bx bx-user-circle"></i>
             </a>
         </div>
+        <div class="menu-toggle">
+            <i class="bx bx-menu"></i>
+        </div>
     </header>
+ <!-- Panneau coulissant du menu -->
+    <div id="menu-panel" class="menu-panel">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+       <div class="menu-panel-content">
+           
+           <a href="../index.html">Accueil</a>
+           <a href="services.html">Services</a>
+           <a href="habitats.html">Habitats</a>
+           <a href="animaux.html">Animaux</a>
+           <a href="contact.html">Contact</a>
+           <a href="connexion.html"><i class="bx bx-user-circle"></i></a>
+       </div>
+    </div>
     <!-- Contenu de la page des services -->
     <main>
         <section id="services">
@@ -41,34 +57,8 @@
         </section>
         <br>
         <section class="serv-present section2">
-            <div class="present-list serv-present-list">
-                <div class="list-card">
-                        <img src="../source/img/sectionimg/4.png" class="card-img-top" alt="restauration">
-                        <div class="card-body">
-                            <h3 class="card-title">Restauration</h3>
-                            <p class="card-text">Profitez de notre service de restauration avec des options pour tous
-                                les goûts.</p>
-                        </div>
-  
-                </div>
-                <div class="list-card">
-                        <img src="../source/img/sectionimg/5.png" class="card-img-top" alt="visite">
-                        <div class="card-body">
-                            <h3 class="card-title">Visite guidée</h3>
-                            <p class="card-text">Participez à une visite guidée gratuite de nos habitats avec nos
-                                experts.</p>
-                        </div>
-  
-                </div>
-                <div class="list-card">
-                        <img src="../source/img/sectionimg/6.png" class="card-img-top" alt="train">
-                        <div class="card-body">
-                            <h3 class="card-title">Zoo-Choo Express!</h3>
-                            <p class="card-text">Explorez le zoo à bord de notre petit train pour une expérience unique.
-                            </p>
-                        </div>
-        
-                </div>
+            <div class="present-list serv-present-list" id="serviceList">
+                <!-- Les cartes seront générées dynamiquement ici -->
             </div>
         </section>
     </main>
@@ -113,33 +103,28 @@
         </div>
         <p>&copy; 2024 Zoo Arcadia. Tous droits réservés.</p>
     </footer>
+    <script src="../js/document.js"></script>
     <script>
-        async function fetchServices() {
-            try {
-                const response = await fetch('/api/services');
-                const services = await response.json();
-                const servicesList = document.getElementById('servicesList');
+        document.addEventListener('DOMContentLoaded', function () {
+            const serviceList = document.getElementById('serviceList');
 
-                services.forEach(service => {
-                    const serviceDiv = document.createElement('div');
-                    serviceDiv.classList.add('service');
-
-                    const serviceName = document.createElement('h3');
-                    serviceName.textContent = service.nom;
-                    serviceDiv.appendChild(serviceName);
-
-                    const serviceDescription = document.createElement('p');
-                    serviceDescription.textContent = service.description;
-                    serviceDiv.appendChild(serviceDescription);
-
-                    servicesList.appendChild(serviceDiv);
-                });
-            } catch (error) {
-                console.error('Erreur lors de la récupération des services :', error);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchServices);
+            fetch('http://localhost:2004/api/services')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(service => {
+                        const serviceCard = document.createElement('div');
+                        serviceCard.className = 'list-card';
+                        serviceCard.innerHTML = `
+                            <div class="card-body">
+                                <h3 class="card-title">${service.nom}</h3>
+                                <p class="card-text">${service.description}</p>
+                            </div>
+                        `;
+                        serviceList.appendChild(serviceCard);
+                    });
+                })
+                .catch(error => console.error('Erreur:', error));
+        });
     </script>
 
 </body>
